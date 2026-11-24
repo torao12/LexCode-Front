@@ -1,69 +1,254 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState } from 'react';
+import {
+  StudentRoute,
+  TeacherModule,
+  TeacherRoute,
+  TeacherStudent,
+  UserRole,
+} from '@/types/lexcode';
+import {
+  INITIAL_TEACHER_MODULES,
+  INITIAL_TEACHER_STUDENTS,
+} from '@/data/mockLexCode';
+import { LandingView } from '@/components/public/LandingView';
+import { AuthView } from '@/components/public/AuthView';
+import { OnboardingView } from '@/components/public/OnboardingView';
+import { Sidebar } from '@/components/layout/Sidebar';
+import { TopBar } from '@/components/layout/TopBar';
+import { DashboardStudent } from '@/components/student/DashboardStudent';
+import { DilemasView } from '@/components/student/DilemasView';
+import { ActividadesView } from '@/components/student/ActividadesView';
+import { GlosarioView } from '@/components/student/GlosarioView';
+import { InsigniasView } from '@/components/student/InsigniasView';
+import { ChatbotLexisView } from '@/components/student/ChatbotLexisView';
+import { PerfilView } from '@/components/student/PerfilView';
+import { DashboardTeacher } from '@/components/teacher/DashboardTeacher';
+import { AlumnosView } from '@/components/teacher/AlumnosView';
+import { ModulosView } from '@/components/teacher/ModulosView';
+import { ConfiguracionDocenteView } from '@/components/teacher/ConfiguracionDocenteView';
+
+type Stage = 'landing' | 'auth' | 'onboarding' | 'app';
+
+export default function HomePage() {
+  const [stage, setStage] = useState<Stage>('app');
+  const [authMode, setAuthMode] = useState<'register' | 'login'>('register');
+  const [role, setRole] = useState<UserRole>('student');
+  const [userName, setUserName] = useState<string>('Regina');
+  const [profileFullName, setProfileFullName] = useState<string>(
+    'Ian Mauricio Morales Montejo'
+  );
+
+  const [studentRoute, setStudentRoute] = useState<StudentRoute>('dashboard');
+  const [teacherRoute, setTeacherRoute] = useState<TeacherRoute>('dashboard');
+
+  const [xp, setXp] = useState<number>(2450);
+  const [streakDays] = useState<number>(5);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [chatbotPrompt, setChatbotPrompt] = useState<string>('');
+
+  const [students, setStudents] = useState<TeacherStudent[]>(
+    INITIAL_TEACHER_STUDENTS
+  );
+  const [modules, setModules] = useState<TeacherModule[]>(
+    INITIAL_TEACHER_MODULES
+  );
+
+  const handleUpdateXp = (delta: number) => {
+    setXp((prev) => Math.max(0, prev + delta));
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!searchQuery.trim()) return;
+    setRole('student');
+    setStage('app');
+    setStudentRoute('glosario');
+  };
+
+  const handleAskLexisFromGlossary = (queryText: string) => {
+    setChatbotPrompt(queryText);
+    setStudentRoute('chatbot');
+  };
+
+  if (stage === 'landing') {
+    return (
+      <LandingView
+        onStartAdventure={() => {
+          setAuthMode('register');
+          setStage('auth');
+        }}
+        onLogin={() => {
+          setAuthMode('login');
+          setStage('auth');
+        }}
+        onViewModules={() => {
+          setRole('student');
+          setStudentRoute('actividades');
+          setStage('app');
+        }}
+      />
+    );
+  }
+
+  if (stage === 'auth') {
+    return (
+      <AuthView
+        initialMode={authMode}
+        onBackToLanding={() => setStage('landing')}
+        onCompleteAuth={(selectedRole, resolvedName) => {
+          setRole(selectedRole);
+          setProfileFullName(resolvedName);
+          setUserName(resolvedName.split(' ')[0] || 'Ian');
+          if (selectedRole === 'student') {
+            setStage('onboarding');
+          } else {
+            setTeacherRoute('dashboard');
+            setStage('app');
+          }
+        }}
+      />
+    );
+  }
+
+  if (stage === 'onboarding') {
+    return (
+      <OnboardingView
+        onFinishOnboarding={() => {
+          setStudentRoute('dashboard');
+          setStage('app');
+        }}
+      />
+    );
+  }
+
+  const topBarTitle =
+    role === 'student'
+      ? studentRoute === 'dashboard'
+        ? 'Dashboard'
+        : studentRoute === 'dilemas'
+          ? 'Dilemas'
+          : studentRoute === 'actividades'
+            ? 'Quizzes'
+            : studentRoute === 'glosario'
+              ? 'Glosario'
+              : studentRoute === 'insignias'
+                ? 'INsignias'
+                : studentRoute === 'chatbot'
+                  ? 'Asistente Virtual'
+                  : 'Perfil'
+      : 'Dashboard';
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="min-h-screen bg-[#000000] text-white flex relative overflow-x-hidden">
+      {/* Patrón de puntos inferior izquierdo característico */}
+      <div
+        className="pointer-events-none fixed left-[228px] bottom-0 w-[260px] h-[340px] lexcode-dot-pattern opacity-75 z-0"
+        aria-hidden="true"
+      />
+
+      <Sidebar
+        role={role}
+        studentRoute={studentRoute}
+        teacherRoute={teacherRoute}
+        onSelectStudentRoute={(route) => setStudentRoute(route)}
+        onSelectTeacherRoute={(route) => setTeacherRoute(route)}
+        onSwitchRole={(nextRole) => setRole(nextRole)}
+      />
+
+      <div className="flex-1 flex flex-col min-w-0 relative z-10">
+        <TopBar
+          title={topBarTitle}
+          searchQuery={searchQuery}
+          onSearchChange={setSearchQuery}
+          onSearchSubmit={handleSearchSubmit}
+          onToggleRoleQuick={() =>
+            setRole((prev) => (prev === 'student' ? 'teacher' : 'student'))
+          }
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+
+        <main className="flex-1 px-8 py-7">
+          {role === 'student' ? (
+            <>
+              {studentRoute === 'dashboard' && (
+                <DashboardStudent
+                  userName={userName}
+                  xp={xp}
+                  streakDays={streakDays}
+                  onNavigate={(r) => setStudentRoute(r)}
+                />
+              )}
+              {studentRoute === 'dilemas' && (
+                <DilemasView xp={xp} onUpdateXp={handleUpdateXp} />
+              )}
+              {studentRoute === 'actividades' && (
+                <ActividadesView xp={xp} onUpdateXp={handleUpdateXp} />
+              )}
+              {studentRoute === 'glosario' && (
+                <GlosarioView
+                  externalSearch={searchQuery}
+                  onAskLexis={handleAskLexisFromGlossary}
+                />
+              )}
+              {studentRoute === 'insignias' && <InsigniasView />}
+              {studentRoute === 'chatbot' && (
+                <ChatbotLexisView
+                  userName={profileFullName}
+                  initialPrompt={chatbotPrompt}
+                  onNavigateGlossary={(r) => setStudentRoute(r)}
+                />
+              )}
+              {studentRoute === 'perfil' && (
+                <PerfilView
+                  userName={profileFullName}
+                  onUpdateName={(name) => {
+                    setProfileFullName(name);
+                    setUserName(name.split(' ')[0] || name);
+                  }}
+                  onLogoutToLanding={() => setStage('landing')}
+                />
+              )}
+            </>
+          ) : (
+            <>
+              {teacherRoute === 'dashboard' && (
+                <DashboardTeacher
+                  studentsCount={42}
+                  modulesCount={modules.length + 3}
+                  onNavigateTeacher={(r) => setTeacherRoute(r)}
+                />
+              )}
+              {teacherRoute === 'alumnos' && (
+                <AlumnosView
+                  students={students}
+                  onAddStudent={(newStudent) =>
+                    setStudents((prev) => [
+                      ...prev,
+                      { ...newStudent, id: `s-${Date.now()}` },
+                    ])
+                  }
+                />
+              )}
+              {teacherRoute === 'modulos' && (
+                <ModulosView
+                  modules={modules}
+                  onAddModule={(mod) => setModules((prev) => [...prev, mod])}
+                  onUpdateModule={(updated) =>
+                    setModules((prev) =>
+                      prev.map((m) => (m.id === updated.id ? updated : m))
+                    )
+                  }
+                  onDeleteModule={(id) =>
+                    setModules((prev) => prev.filter((m) => m.id !== id))
+                  }
+                />
+              )}
+              {teacherRoute === 'configuracion' && <ConfiguracionDocenteView />}
+            </>
+          )}
+        </main>
+      </div>
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { Download, Trash2 } from 'lucide-react';
 import { api, ApiError, downloadFile, errorMessage } from '@/lib/api';
 import { useSession } from '@/lib/session';
 import { LEVEL_TITLES, type ConsentState, type FullProfile } from '@/lib/types';
+import { ArcoSection } from './ArcoSection';
 
 interface PerfilViewProps {
   onLogout: () => void;
@@ -517,6 +518,8 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ onLogout }) => {
         </div>
         <Message notice={privacyNotice} />
       </section>
+
+      <ArcoSection />
 
       <div className="relative z-10 pt-2">
         <button

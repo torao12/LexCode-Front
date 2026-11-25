@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import {
+  AdminRoute,
   StudentRoute,
   TeacherModule,
   TeacherRoute,
@@ -31,6 +32,36 @@ import { DashboardTeacher } from '@/components/teacher/DashboardTeacher';
 import { AlumnosView } from '@/components/teacher/AlumnosView';
 import { ModulosView } from '@/components/teacher/ModulosView';
 import { ConfiguracionDocenteView } from '@/components/teacher/ConfiguracionDocenteView';
+import { BusquedaView } from '@/components/student/BusquedaView';
+import { AdminUsersView } from '@/components/admin/AdminUsersView';
+import { AdminArcoView } from '@/components/admin/AdminArcoView';
+import { AdminReportsView } from '@/components/admin/AdminReportsView';
+import { AdminGlossaryView } from '@/components/admin/AdminGlossaryView';
+import { AdminLexisView } from '@/components/admin/AdminLexisView';
+import { AdminDocumentsView } from '@/components/admin/AdminDocumentsView';
+import { AdminAuditView } from '@/components/admin/AdminAuditView';
+
+const STUDENT_TITLES: Record<StudentRoute, string> = {
+  dashboard: 'Dashboard',
+  dilemas: 'Dilemas',
+  actividades: 'Quizzes',
+  glosario: 'Glosario',
+  insignias: 'Insignias',
+  chatbot: 'Asistente Virtual',
+  perfil: 'Perfil',
+  busqueda: 'Búsqueda',
+};
+
+const ADMIN_TITLES: Record<AdminRoute, string> = {
+  usuarios: 'Usuarios',
+  arco: 'Solicitudes ARCO',
+  reportes: 'Reportes',
+  glosario: 'Glosario',
+  lexis: 'Lexis',
+  documentos: 'Documentos legales',
+  bitacora: 'Bitácora',
+  perfil: 'Mi perfil',
+};
 
 type PublicStage = 'landing' | 'auth';
 
@@ -42,11 +73,15 @@ export default function HomePage() {
 
   const [studentRoute, setStudentRoute] = useState<StudentRoute>('dashboard');
   const [teacherRoute, setTeacherRoute] = useState<TeacherRoute>('dashboard');
+  const [adminRoute, setAdminRoute] = useState<AdminRoute>('usuarios');
 
   // XP local de los juegos simulados (se reemplaza cuando exista el backend de Persona B).
   const [xpDelta, setXpDelta] = useState<number>(0);
   const [streakDays] = useState<number>(5);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  // Búsqueda enviada desde la barra superior y término abierto en el glosario
+  const [submittedSearch, setSubmittedSearch] = useState<string>('');
+  const [glossarySearch, setGlossarySearch] = useState<string>('');
   const [chatbotPrompt, setChatbotPrompt] = useState<string>('');
 
   const [students, setStudents] = useState<TeacherStudent[]>(
@@ -63,7 +98,8 @@ export default function HomePage() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    setStudentRoute('glosario');
+    setSubmittedSearch(searchQuery.trim());
+    setStudentRoute('busqueda');
   };
 
   const handleAskLexisFromGlossary = (queryText: string) => {
@@ -120,8 +156,7 @@ export default function HomePage() {
     );
   }
 
-  // El administrador usa por ahora la vista docente (su panel aún no tiene pantallas).
-  const role: UserRole = profile.role === 'student' ? 'student' : 'teacher';
+  const role: UserRole = profile.role;
   const firstName = profile.full_name.split(' ')[0] || profile.username;
   const xp = Math.max(0, profile.xp_total + xpDelta);
 
@@ -129,25 +164,21 @@ export default function HomePage() {
     await logout();
     setPublicStage('landing');
     setSearchQuery('');
+    setSubmittedSearch('');
+    setGlossarySearch('');
     setChatbotPrompt('');
+    setStudentRoute('dashboard');
+    setTeacherRoute('dashboard');
+    setAdminRoute('usuarios');
+  };
+
+  const openGlossary = (term: string) => {
+    setGlossarySearch(term);
+    setStudentRoute('glosario');
   };
 
   const topBarTitle =
-    role === 'student'
-      ? studentRoute === 'dashboard'
-        ? 'Dashboard'
-        : studentRoute === 'dilemas'
-          ? 'Dilemas'
-          : studentRoute === 'actividades'
-            ? 'Quizzes'
-            : studentRoute === 'glosario'
-              ? 'Glosario'
-              : studentRoute === 'insignias'
-                ? 'INsignias'
-                : studentRoute === 'chatbot'
-                  ? 'Asistente Virtual'
-                  : 'Perfil'
-      : 'Dashboard';
+    role === 'student' ? STUDENT_TITLES[studentRoute] : role === 'admin' ? ADMIN_TITLES[adminRoute] : 'Dashboard';
 
   return (
     <div className="min-h-screen bg-[#000000] text-white flex relative overflow-x-hidden">
@@ -161,10 +192,14 @@ export default function HomePage() {
         role={role}
         studentRoute={studentRoute}
         teacherRoute={teacherRoute}
-        onSelectStudentRoute={(route) => setStudentRoute(route)}
+        adminRoute={adminRoute}
+        onSelectStudentRoute={(route) => {
+          if (route === 'glosario') setGlossarySearch('');
+          setStudentRoute(route);
+        }}
         onSelectTeacherRoute={(route) => setTeacherRoute(route)}
+        onSelectAdminRoute={(route) => setAdminRoute(route)}
         userName={profile.full_name}
-        accountRole={profile.role}
         onLogout={handleLogout}
       />
 
@@ -195,7 +230,7 @@ export default function HomePage() {
               )}
               {studentRoute === 'glosario' && (
                 <GlosarioView
-                  externalSearch={searchQuery}
+                  externalSearch={glossarySearch}
                   onAskLexis={handleAskLexisFromGlossary}
                 />
               )}
@@ -205,15 +240,31 @@ export default function HomePage() {
                   userName={profile.full_name}
                   initialPrompt={chatbotPrompt}
                   onConsumePrompt={() => setChatbotPrompt('')}
-                  onOpenGlossary={(term) => {
-                    setSearchQuery(term);
-                    setStudentRoute('glosario');
-                  }}
+                  onOpenGlossary={openGlossary}
                 />
               )}
               {studentRoute === 'perfil' && (
                 <PerfilView onLogout={handleLogout} />
               )}
+              {studentRoute === 'busqueda' && (
+                <BusquedaView
+                  query={submittedSearch}
+                  onOpenGlossary={openGlossary}
+                  onAskLexis={handleAskLexisFromGlossary}
+                  onNavigate={(r) => setStudentRoute(r)}
+                />
+              )}
+            </>
+          ) : role === 'admin' ? (
+            <>
+              {adminRoute === 'usuarios' && <AdminUsersView />}
+              {adminRoute === 'arco' && <AdminArcoView />}
+              {adminRoute === 'reportes' && <AdminReportsView />}
+              {adminRoute === 'glosario' && <AdminGlossaryView />}
+              {adminRoute === 'lexis' && <AdminLexisView />}
+              {adminRoute === 'documentos' && <AdminDocumentsView />}
+              {adminRoute === 'bitacora' && <AdminAuditView />}
+              {adminRoute === 'perfil' && <PerfilView onLogout={handleLogout} />}
             </>
           ) : (
             <>

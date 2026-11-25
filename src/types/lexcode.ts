@@ -1,5 +1,4 @@
 export type UserRole = 'student' | 'teacher' | 'admin';
-<<<<<<< HEAD
 
 export type LexisExpression =
   | 'happy'
@@ -8,8 +7,6 @@ export type LexisExpression =
   | 'angry'
   | 'book_bulb'
   | 'wave';
-=======
->>>>>>> cee7c55 (feat: integrate auth session, chatbot payload, progress tracking, and hydration guard)
 
 export type StudentRoute =
   | 'dashboard'
@@ -33,7 +30,6 @@ export type AdminRoute =
 
 export type TeacherRoute = 'dashboard' | 'alumnos' | 'modulos' | 'configuracion';
 
-export type LexisExpression = 'happy' | 'wave' | 'neutral' | 'sad' | 'angry' | 'book_bulb';
 
 export interface DilemaOption {
   id: 'A' | 'B' | 'C' | 'D';

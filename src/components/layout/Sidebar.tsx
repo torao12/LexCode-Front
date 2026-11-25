@@ -11,6 +11,7 @@ import {
   User,
   Users,
   Settings,
+  LogOut,
 } from 'lucide-react';
 import { StudentRoute, TeacherRoute, UserRole } from '@/types/lexcode';
 import { LexCodeLogo } from '@/components/brand/LexCodeLogo';
@@ -21,8 +22,12 @@ interface SidebarProps {
   teacherRoute: TeacherRoute;
   onSelectStudentRoute: (route: StudentRoute) => void;
   onSelectTeacherRoute: (route: TeacherRoute) => void;
-  onSwitchRole: (role: UserRole) => void;
+  userName: string;
+  accountRole: 'student' | 'teacher' | 'admin';
+  onLogout: () => void;
 }
+
+const ROLE_LABELS = { student: 'Alumno', teacher: 'Docente', admin: 'Administrador' } as const;
 
 export const Sidebar: React.FC<SidebarProps> = ({
   role,
@@ -30,8 +35,17 @@ export const Sidebar: React.FC<SidebarProps> = ({
   teacherRoute,
   onSelectStudentRoute,
   onSelectTeacherRoute,
-  onSwitchRole,
+  userName,
+  accountRole,
+  onLogout,
 }) => {
+  const initials =
+    userName
+      .split(' ')
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase())
+      .join('') || 'LX';
   const studentNav: { id: StudentRoute; label: string; icon: React.ReactNode }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: <LayoutGrid className="w-4 h-4" /> },
     { id: 'dilemas', label: 'Dilemas', icon: <GitBranch className="w-4 h-4" /> },
@@ -113,35 +127,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </nav>
       </div>
 
-      {/* Selector rápido de rol para validar ambos flujos */}
+      {/* Cuenta activa: el rol lo asigna un administrador, no se cambia desde aquí */}
       <div className="px-4 pt-6 border-t border-[#141414]">
-        <p className="text-[10px] uppercase tracking-wider text-[#757575] px-2 mb-2">
-          Vista activa
-        </p>
-        <div className="grid grid-cols-2 gap-1.5 bg-[#111111] p-1 rounded-lg border border-[#222222]">
-          <button
-            type="button"
-            onClick={() => onSwitchRole('student')}
-            className={`py-1.5 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
-              role === 'student'
-                ? 'bg-[#00FFEF] text-black'
-                : 'text-[#A3A3A3] hover:text-white'
-            }`}
-          >
-            Alumno
-          </button>
-          <button
-            type="button"
-            onClick={() => onSwitchRole('teacher')}
-            className={`py-1.5 text-xs font-semibold rounded-md transition-colors cursor-pointer ${
-              role === 'teacher'
-                ? 'bg-[#00FFEF] text-black'
-                : 'text-[#A3A3A3] hover:text-white'
-            }`}
-          >
-            Docente
-          </button>
+        <div className="flex items-center gap-3 px-2">
+          <div className="w-9 h-9 rounded-full bg-[#0A1E1D] border border-[#00FFEF] flex items-center justify-center text-xs font-bold text-[#00FFEF] shrink-0">
+            {initials}
+          </div>
+          <div className="min-w-0">
+            <p className="text-xs font-semibold text-white truncate">{userName}</p>
+            <p className="text-[10px] uppercase tracking-wider text-[#757575]">{ROLE_LABELS[accountRole]}</p>
+          </div>
         </div>
+        <button
+          type="button"
+          onClick={onLogout}
+          className="mt-3 w-full flex items-center justify-center gap-2 py-2 text-xs font-semibold rounded-lg border border-[#222222] text-[#A3A3A3] hover:text-[#FF3366] hover:border-[#FF3366] transition-colors cursor-pointer"
+        >
+          <LogOut className="w-3.5 h-3.5" />
+          Cerrar sesión
+        </button>
       </div>
     </aside>
   );

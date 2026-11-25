@@ -12,9 +12,12 @@ import {
   INITIAL_TEACHER_MODULES,
   INITIAL_TEACHER_STUDENTS,
 } from '@/data/mockLexCode';
+import { useSession } from '@/lib/session';
 import { LandingView } from '@/components/public/LandingView';
 import { AuthView } from '@/components/public/AuthView';
 import { OnboardingView } from '@/components/public/OnboardingView';
+import { AccountStatusView } from '@/components/public/AccountStatusView';
+import { LoadingScreen } from '@/components/public/LoadingScreen';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { TopBar } from '@/components/layout/TopBar';
 import { DashboardStudent } from '@/components/student/DashboardStudent';
@@ -29,21 +32,19 @@ import { AlumnosView } from '@/components/teacher/AlumnosView';
 import { ModulosView } from '@/components/teacher/ModulosView';
 import { ConfiguracionDocenteView } from '@/components/teacher/ConfiguracionDocenteView';
 
-type Stage = 'landing' | 'auth' | 'onboarding' | 'app';
+type PublicStage = 'landing' | 'auth';
 
 export default function HomePage() {
-  const [stage, setStage] = useState<Stage>('app');
+  const { profile, logout } = useSession();
+  const [publicStage, setPublicStage] = useState<PublicStage>('landing');
   const [authMode, setAuthMode] = useState<'register' | 'login'>('register');
-  const [role, setRole] = useState<UserRole>('student');
-  const [userName, setUserName] = useState<string>('Regina');
-  const [profileFullName, setProfileFullName] = useState<string>(
-    'Ian Mauricio Morales Montejo'
-  );
+  const [showOnboarding, setShowOnboarding] = useState(false);
 
   const [studentRoute, setStudentRoute] = useState<StudentRoute>('dashboard');
   const [teacherRoute, setTeacherRoute] = useState<TeacherRoute>('dashboard');
 
-  const [xp, setXp] = useState<number>(2450);
+  // XP local de los juegos simulados (se reemplaza cuando exista el backend de Persona B).
+  const [xpDelta, setXpDelta] = useState<number>(0);
   const [streakDays] = useState<number>(5);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [chatbotPrompt, setChatbotPrompt] = useState<string>('');
@@ -56,14 +57,12 @@ export default function HomePage() {
   );
 
   const handleUpdateXp = (delta: number) => {
-    setXp((prev) => Math.max(0, prev + delta));
+    setXpDelta((prev) => prev + delta);
   };
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchQuery.trim()) return;
-    setRole('student');
-    setStage('app');
     setStudentRoute('glosario');
   };
 
@@ -72,56 +71,66 @@ export default function HomePage() {
     setStudentRoute('chatbot');
   };
 
-  if (stage === 'landing') {
-    return (
-      <LandingView
-        onStartAdventure={() => {
-          setAuthMode('register');
-          setStage('auth');
-        }}
-        onLogin={() => {
-          setAuthMode('login');
-          setStage('auth');
-        }}
-        onViewModules={() => {
-          setRole('student');
-          setStudentRoute('actividades');
-          setStage('app');
-        }}
-      />
-    );
-  }
+  if (profile === undefined) return <LoadingScreen />;
 
-  if (stage === 'auth') {
+  if (profile === null) {
+    if (publicStage === 'landing') {
+      return (
+        <LandingView
+          onStartAdventure={() => {
+            setAuthMode('register');
+            setPublicStage('auth');
+          }}
+          onLogin={() => {
+            setAuthMode('login');
+            setPublicStage('auth');
+          }}
+          onViewModules={() => {
+            setAuthMode('register');
+            setPublicStage('auth');
+          }}
+        />
+      );
+    }
     return (
       <AuthView
         initialMode={authMode}
-        onBackToLanding={() => setStage('landing')}
-        onCompleteAuth={(selectedRole, resolvedName) => {
-          setRole(selectedRole);
-          setProfileFullName(resolvedName);
-          setUserName(resolvedName.split(' ')[0] || 'Ian');
-          if (selectedRole === 'student') {
-            setStage('onboarding');
-          } else {
-            setTeacherRoute('dashboard');
-            setStage('app');
-          }
+        onBackToLanding={() => setPublicStage('landing')}
+        onCompleteAuth={(isNewAccount) => {
+          setStudentRoute('dashboard');
+          setTeacherRoute('dashboard');
+          setShowOnboarding(isNewAccount);
         }}
       />
     );
   }
 
-  if (stage === 'onboarding') {
+  if (profile.status !== 'active') {
+    return <AccountStatusView />;
+  }
+
+  if (showOnboarding && profile.role === 'student') {
     return (
       <OnboardingView
         onFinishOnboarding={() => {
           setStudentRoute('dashboard');
-          setStage('app');
+          setShowOnboarding(false);
         }}
       />
     );
   }
+
+  // El administrador usa por ahora la vista docente (su panel aún no tiene pantallas).
+  const role: UserRole = profile.role === 'student' ? 'student' : 'teacher';
+  const firstName = profile.full_name.split(' ')[0] || profile.username;
+  const xp = Math.max(0, profile.xp_total + xpDelta);
+
+  const handleLogout = async () => {
+    await logout();
+    setPublicStage('landing');
+    setSearchQuery('');
+    setChatbotPrompt('');
+  };
 
   const topBarTitle =
     role === 'student'
@@ -154,7 +163,9 @@ export default function HomePage() {
         teacherRoute={teacherRoute}
         onSelectStudentRoute={(route) => setStudentRoute(route)}
         onSelectTeacherRoute={(route) => setTeacherRoute(route)}
-        onSwitchRole={(nextRole) => setRole(nextRole)}
+        userName={profile.full_name}
+        accountRole={profile.role}
+        onLogout={handleLogout}
       />
 
       <div className="flex-1 flex flex-col min-w-0 relative z-10">
@@ -162,10 +173,7 @@ export default function HomePage() {
           title={topBarTitle}
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          onSearchSubmit={handleSearchSubmit}
-          onToggleRoleQuick={() =>
-            setRole((prev) => (prev === 'student' ? 'teacher' : 'student'))
-          }
+          onSearchSubmit={role === 'student' ? handleSearchSubmit : undefined}
         />
 
         <main className="flex-1 px-8 py-7">
@@ -173,7 +181,7 @@ export default function HomePage() {
             <>
               {studentRoute === 'dashboard' && (
                 <DashboardStudent
-                  userName={userName}
+                  userName={firstName}
                   xp={xp}
                   streakDays={streakDays}
                   onNavigate={(r) => setStudentRoute(r)}
@@ -194,20 +202,17 @@ export default function HomePage() {
               {studentRoute === 'insignias' && <InsigniasView />}
               {studentRoute === 'chatbot' && (
                 <ChatbotLexisView
-                  userName={profileFullName}
+                  userName={profile.full_name}
                   initialPrompt={chatbotPrompt}
-                  onNavigateGlossary={(r) => setStudentRoute(r)}
+                  onConsumePrompt={() => setChatbotPrompt('')}
+                  onOpenGlossary={(term) => {
+                    setSearchQuery(term);
+                    setStudentRoute('glosario');
+                  }}
                 />
               )}
               {studentRoute === 'perfil' && (
-                <PerfilView
-                  userName={profileFullName}
-                  onUpdateName={(name) => {
-                    setProfileFullName(name);
-                    setUserName(name.split(' ')[0] || name);
-                  }}
-                  onLogoutToLanding={() => setStage('landing')}
-                />
+                <PerfilView onLogout={handleLogout} />
               )}
             </>
           ) : (

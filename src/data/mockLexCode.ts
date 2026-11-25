@@ -4,8 +4,7 @@ import {
   DilemaCase,
   GlossaryTerm,
   LeaderboardEntry,
-  MemoramaCardItem,
-  QuizModuleCard,
+  MemoramaCard,
   QuizQuestion,
   TeacherModule,
   TeacherStudent,
@@ -15,455 +14,506 @@ export const INITIAL_DILEMAS: DilemaCase[] = [
   {
     id: 'dilema-1',
     number: 1,
-    title: 'Vender datos sin consentimiento?',
-    category: 'DILEMA ACTIVO - LEGISLACIÓN',
-    subtitle: 'Legislación TI - Análisis del Artículo 6 de la LFPDPPP',
-    description:
-      'Tu equipo quiere vender datos de sus usuarios sin su permiso para aumentar ingresos. Analiza la decisión y sus implicaciones bajo la LFPDPPP.',
-    lawQuote:
-      'LFPDPPP Art. 6: Los responsables del tratamiento de datos personales deberán observar los principios de licitud, consentimiento, información y calidad..."',
+    title: '¿Vender datos sin consentimiento?',
+    subtitle: 'Privacidad de datos · LFPDPPP',
+    category: 'LEGISLACIÓN · LFPDPPP',
     status: 'active',
+    description:
+      'Tu equipo quiere vender los datos de sus usuarios sin su permiso para aumentar ingresos. Analiza la decisión y sus implicaciones bajo la LFPDPPP.',
+    lawQuote:
+      'El responsable del tratamiento de datos personales deberá obtener el consentimiento expreso del titular cuando se trate de transferencia de datos a terceros no afiliados.',
     options: [
       {
         id: 'A',
-        text: 'Realizar la venta. El beneficio económico para la empresa es prioridad.',
+        text: 'Exportar la base en CSV y enviarla a un broker externo sin avisar',
         isCorrect: false,
         xpDelta: -50,
-        feedbackTitle: 'Sanción Legal!',
+        feedbackTitle: 'Infraccion de seguridad!',
         feedbackText:
-          'Priorizar el beneficio económico sin consentimiento vulnera el Art. 6 de la LFPDPPP. Esto expone a la empresa a demandas millonarias y pérdida de reputación.',
+          'Transferir datos personales sin consentimiento vulnera la LFPDPPP y expone a sanciones administrativas y daño reputacional.',
       },
       {
         id: 'B',
-        text: 'Negarme y exigir que se obtenga el consentimiento expreso de los usuarios.',
+        text: 'Solicitar consentimiento expreso e informar en el Aviso de Privacidad',
         isCorrect: true,
         xpDelta: 150,
-        feedbackTitle: '¡Excelente decisión!',
+        feedbackTitle: '¡Decisión ética y legal!',
         feedbackText:
-          'Negarse a la venta sin consentimiento expreso cumple con la LFPDPPP, protegiendo tanto la privacidad de los usuarios como a la empresa de severas sanciones legales.',
+          'Cumples con los principios de licitud, información y consentimiento de la LFPDPPP antes de compartir datos.',
       },
       {
         id: 'C',
-        text: 'Anonimizar los datos de prisa sin validar el método de seguridad.',
+        text: 'Ocultar la transferencia en una cláusula ambigua al final del contrato',
         isCorrect: false,
-        xpDelta: -30,
-        feedbackTitle: 'Riesgo de Reidentificación!',
+        xpDelta: -50,
+        feedbackTitle: 'Infraccion de seguridad!',
         feedbackText:
-          'Una anonimización deficiente sin validar controles técnicos puede permitir reidentificar a los titulares y generar incidentes de privacidad.',
+          'El consentimiento debe ser libre, específico e informado; las cláusulas ambiguas no validan el tratamiento.',
       },
       {
         id: 'D',
-        text: 'Delegar la decisión al equipo de marketing para evitar el conflicto',
+        text: 'Compartir correos y teléfonos a cambio de acceso anticipado a otra app',
         isCorrect: false,
         xpDelta: -25,
-        feedbackTitle: 'Responsabilidad Compartida!',
+        feedbackTitle: 'Riesgo de privacidad!',
         feedbackText:
-          'Evadir la responsabilidad técnica y legal no exime al equipo ni a la organización del cumplimiento normativo.',
+          'Condicionar o transferir datos personales sin autorización clara infringe la normativa de protección de datos.',
       },
     ],
   },
   {
     id: 'dilema-2',
     number: 2,
-    title: 'Ocultar una brecha de seguridad',
-    category: 'DILEMA ACTIVO - CIBERSEGURIDAD',
-    subtitle: 'Ciberseguridad - Notificación de incidentes a usuarios',
-    description:
-      'Se detectó una filtración de correos y hashes antiguos en un respaldo. Un directivo sugiere esperar hasta después del lanzamiento.',
-    lawQuote:
-      'LFPDPPP Art. 20: Todo responsable que lleve a cabo un tratamiento de datos personales deberá establecer y mantener medidas de seguridad administrativas, técnicas y físicas.',
+    title: 'Un acceso que no te corresponde',
+    subtitle: 'Control de accesos · Ética en TI',
+    category: 'ÉTICA · CIBERSEGURIDAD',
     status: 'locked',
+    description:
+      'Durante una migración de base de datos obtienes credenciales de producción de otra área. ¿Cómo debes actuar?',
+    lawQuote:
+      'El acceso no autorizado o fuera del ámbito de funciones asignadas compromete la confidencialidad e integridad de los sistemas.',
     options: [
       {
         id: 'A',
-        text: 'Ocultar el incidente hasta terminar el lanzamiento.',
-        isCorrect: false,
-        xpDelta: -50,
-        feedbackTitle: 'Sanción Legal!',
+        text: 'Notificar al responsable de seguridad y revocar o aislar el acceso',
+        isCorrect: true,
+        xpDelta: 150,
+        feedbackTitle: '¡Actuación responsable!',
         feedbackText:
-          'Retrasar la atención y comunicación de una vulneración crítica agrava el impacto sobre las cuentas de los usuarios.',
+          'Reportar el exceso de privilegios protege la integridad del sistema y respeta el principio de mínimo privilegio.',
       },
       {
         id: 'B',
-        text: 'Contener el incidente, rotar credenciales e informar con transparencia.',
-        isCorrect: true,
-        xpDelta: 150,
-        feedbackTitle: '¡Excelente decisión!',
+        text: 'Conservar las credenciales por si necesitas consultar algo rápido luego',
+        isCorrect: false,
+        xpDelta: -50,
+        feedbackTitle: 'Infraccion de seguridad!',
         feedbackText:
-          'Actuar con contención inmediata y transparencia protege la integridad del sistema y la confianza de los usuarios.',
+          'Mantener accesos no autorizados viola el principio de mínimo privilegio y políticas de seguridad.',
       },
       {
         id: 'C',
-        text: 'Borrar los logs del servidor para evitar auditorías.',
+        text: 'Descargar registros para analizarlos en tu equipo personal',
         isCorrect: false,
         xpDelta: -50,
-        feedbackTitle: 'Infracción Grave!',
+        feedbackTitle: 'Infraccion de seguridad!',
         feedbackText:
-          'Alterar o eliminar evidencia forense impide responder ante incidentes y vulnera las buenas prácticas de auditoría.',
+          'Extraer información a dispositivos no autorizados representa una fuga potencial de datos.',
       },
       {
         id: 'D',
-        text: 'Esperar a que algún usuario lo reporte primero.',
+        text: 'Ignorarlo sin dejar registro ni avisar a nadie',
         isCorrect: false,
-        xpDelta: -30,
-        feedbackTitle: 'Respuesta Reactiva Insuficiente!',
+        xpDelta: -25,
+        feedbackTitle: 'Riesgo operativo!',
         feedbackText:
-          'Esperar reportes externos retrasa la mitigación de accesos no autorizados.',
+          'Sin reporte oportuno, la vulnerabilidad de control de accesos puede permanecer abierta.',
       },
     ],
   },
   {
     id: 'dilema-3',
     number: 3,
-    title: 'Uso de software sin licencia en produccion',
-    category: 'DILEMA ACTIVO - ÉTICA PROFESIONAL',
-    subtitle: 'Ética Profesional - Derechos de autor y piratería',
-    description:
-      'Para entregar un proyecto a tiempo, se propone instalar software comercial crackeado en un entorno de producción.',
-    lawQuote:
-      'LFDA Art. 101 Bis: Los programas de computación se protegen en los mismos términos que las obras literarias.',
+    title: 'Software propietario sin licencia',
+    subtitle: 'Propiedad intelectual · LFDA',
+    category: 'LEGISLACIÓN · LFDA',
     status: 'locked',
+    description:
+      'Para entregar un proyecto a tiempo, un compañero propone usar un compilador o herramienta comercial crackeada.',
+    lawQuote:
+      'Los programas de cómputo están protegidos por la Ley Federal del Derecho de Autor en los mismos términos que las obras literarias.',
     options: [
       {
         id: 'A',
-        text: 'Instalar la versión crackeada temporalmente.',
-        isCorrect: false,
-        xpDelta: -50,
-        feedbackTitle: 'Infracción de Derechos de Autor!',
+        text: 'Rechazar el uso no autorizado y proponer alternativas licenciadas u open source',
+        isCorrect: true,
+        xpDelta: 150,
+        feedbackTitle: '¡Correcto!',
         feedbackText:
-          'El uso de software no licenciado en producción infringe la LFDA y expone a la empresa a contingencias legales y malware.',
+          'Respetar las licencias de software evita infracciones a la LFDA y riesgos legales para la organización.',
       },
       {
         id: 'B',
-        text: 'Usar alternativas open source con licencia compatible o licenciamiento válido.',
-        isCorrect: true,
-        xpDelta: 150,
-        feedbackTitle: '¡Excelente decisión!',
+        text: 'Usarlo solo en entorno local mientras dura el desarrollo',
+        isCorrect: false,
+        xpDelta: -50,
+        feedbackTitle: 'Infraccion legal!',
         feedbackText:
-          'Verificar licencias y optar por herramientas legítimas u open source compatible garantiza legalidad y seguridad.',
+          'El uso de software sin licencia constituye una infracción en materia de derechos de autor.',
       },
       {
         id: 'C',
-        text: 'Ocultar el binario dentro de otro contenedor sin documentarlo.',
+        text: 'Incluir el parche en el repositorio del cliente',
         isCorrect: false,
-        xpDelta: -40,
-        feedbackTitle: 'Mala Práctica Ética y Técnica!',
+        xpDelta: -50,
+        feedbackTitle: 'Infraccion grave!',
         feedbackText:
-          'Enmascarar dependencias sin licencia genera deuda legal grave y riesgos de seguridad en la cadena de suministro.',
+          'Distribuir o incorporar software no licenciado compromete legalmente al equipo y al cliente.',
       },
       {
         id: 'D',
-        text: 'Subir el instalador pirata al repositorio interno.',
+        text: 'No documentar la herramienta utilizada en la entrega final',
         isCorrect: false,
-        xpDelta: -35,
-        feedbackTitle: 'Riesgo de Seguridad y Legal!',
+        xpDelta: -25,
+        feedbackTitle: 'Falta de trazabilidad!',
         feedbackText:
-          'Almacenar software no autorizado compromete la integridad del repositorio y la ética profesional.',
+          'La transparencia en dependencias y licencias es clave en ingeniería de software.',
+      },
+    ],
+  },
+  {
+    id: 'dilema-4',
+    number: 4,
+    title: 'Reporte de vulnerabilidad crítica',
+    subtitle: 'Divulgación responsable · Ciberseguridad',
+    category: 'CIBERSEGURIDAD · ÉTICA',
+    status: 'locked',
+    description:
+      'Detectas un endpoint expuesto que permite consultar perfiles sin autenticación antes de un lanzamiento.',
+    lawQuote:
+      'La prevención y notificación oportuna de vulnerabilidades reducen el impacto de incidentes de seguridad.',
+    options: [
+      {
+        id: 'A',
+        text: 'Reportarlo de inmediato al equipo técnico y documentar la remediación',
+        isCorrect: true,
+        xpDelta: 150,
+        feedbackTitle: '¡Excelente criterio!',
+        feedbackText:
+          'Actuar con diligencia y confidencialidad protege a los usuarios antes de exponer el fallo.',
+      },
+      {
+        id: 'B',
+        text: 'Publicar la prueba de concepto en redes antes de avisar',
+        isCorrect: false,
+        xpDelta: -50,
+        feedbackTitle: 'Infraccion de seguridad!',
+        feedbackText:
+          'Exponer una vulnerabilidad sin dar margen de corrección facilita su explotación maliciosa.',
+      },
+      {
+        id: 'C',
+        text: 'Esperar a que ocurra algún incidente real para priorizarlo',
+        isCorrect: false,
+        xpDelta: -50,
+        feedbackTitle: 'Riesgo elevado!',
+        feedbackText:
+          'La seguridad proactiva exige corregir fallos críticos antes de su explotación.',
+      },
+      {
+        id: 'D',
+        text: 'Probar extracción masiva de datos para demostrar el impacto',
+        isCorrect: false,
+        xpDelta: -25,
+        feedbackTitle: 'Riesgo innecesario!',
+        feedbackText:
+          'Validar el fallo no requiere comprometer ni extraer datos sensibles.',
       },
     ],
   },
 ];
 
-export const QUIZ_MODULES: QuizModuleCard[] = [
+export const QUIZ_MODULES = [
   {
     id: 'ciberseguridad',
     title: 'Ciberseguridad',
     questionsCount: 10,
-    description: 'Phishing, Malware y Redes.',
+    description: 'Vulnerabilidades, cifrado y respuesta a incidentes.',
     xpReward: '+ 450 XP',
-    accent: 'cyan',
+    completedBadge: null,
+    accent: 'cyan' as const,
   },
   {
-    id: 'legislacion-ti',
-    title: 'Legislacion TI',
+    id: 'legislacion',
+    title: 'Legislación TI',
     questionsCount: 15,
-    description: 'Normativas LFPDPPP.',
-    xpReward: '+ 600 XP',
-    accent: 'pink',
+    description: 'Derechos ARCO, propiedad intelectual y LFPDPPP.',
+    xpReward: 'Completado (600 XP)',
+    completedBadge: 'Completado (600 XP)',
+    accent: 'pink' as const,
   },
   {
-    id: 'etica-profesional',
-    title: 'Etica Profesional',
+    id: 'etica',
+    title: 'Ética Profesional',
     questionsCount: 8,
-    description: 'Dilemas y buenas practicas.',
-    xpReward: '100% Correcto',
-    accent: 'muted',
-    completedBadge: 'Evaluacion superada',
+    description: 'Código de conducta y responsabilidad algorítmica.',
+    xpReward: '+ 320 XP',
+    completedBadge: null,
+    accent: 'muted' as const,
   },
 ];
 
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
-    id: 'q1',
-    moduleTag: 'QUIZ ACTIVO - CIBERSEGURIDAD',
-    question: 'Cual es el objetivo de un ataque de Phishing?',
+    id: 'q-1',
+    moduleTag: 'MÓDULO: CIBERSEGURIDAD',
+    question: '¿Qué es un ataque de Phishing?',
     options: [
-      { id: 'A', text: 'Sobrecargar un servidor.' },
-      { id: 'B', text: 'Robar credenciales o datos.' },
-      { id: 'C', text: 'Desencriptar contrasenas.' },
-      { id: 'D', text: 'Infectar hardware fisico.' },
+      { id: 'A', text: 'Un virus que daña el hardware' },
+      { id: 'B', text: 'Engaño para robar credenciales' },
+      { id: 'C', text: 'Un tipo de firewall avanzado' },
+      { id: 'D', text: 'Cifrado de extremo a extremo' },
     ],
     correctId: 'B',
     xpCorrect: 150,
     xpWrong: -50,
     explanation:
-      'Confundir un ataque DDoS (sobrecarga) con Phishing (robo de identidad) deja a tus usuarios vulnerables al fraude.',
+      'El Phishing utiliza engaños o suplantación de identidad para que la víctima entregue contraseñas o datos sensibles.',
   },
   {
-    id: 'q2',
-    moduleTag: 'QUIZ ACTIVO - CIBERSEGURIDAD',
-    question: 'Cual es el protocolo cifrado estandar recomendado para conexiones seguras web?',
+    id: 'q-2',
+    moduleTag: 'MÓDULO: CIBERSEGURIDAD',
+    question: '¿Qué principio establece dar solo los permisos mínimos necesarios?',
     options: [
-      { id: 'A', text: 'HTTP 1.0 sin TLS.' },
-      { id: 'B', text: 'HTTPS / TLS 1.3.' },
-      { id: 'C', text: 'FTP / Telnet.' },
-      { id: 'D', text: 'SNMP v1 en texto plano.' },
-    ],
-    correctId: 'B',
-    xpCorrect: 150,
-    xpWrong: -50,
-    explanation:
-      'HTTPS sobre TLS 1.3 cifra el canal en tránsito, autentica el servidor y reduce latencia y algoritmos obsoletos.',
-  },
-  {
-    id: 'q3',
-    moduleTag: 'QUIZ ACTIVO - CIBERSEGURIDAD',
-    question: 'Que herramienta de analisis de puertos permite auditar servicios activos en una red?',
-    options: [
-      { id: 'A', text: 'Nmap.' },
-      { id: 'B', text: 'Figma.' },
-      { id: 'C', text: 'Prettier.' },
-      { id: 'D', text: 'Markdown.' },
+      { id: 'A', text: 'Mínimo privilegio' },
+      { id: 'B', text: 'Disponibilidad abierta' },
+      { id: 'C', text: 'Repudio de origen' },
+      { id: 'D', text: 'Ofuscación por defecto' },
     ],
     correctId: 'A',
     xpCorrect: 150,
     xpWrong: -50,
     explanation:
-      'Nmap permite descubrir hosts, puertos abiertos y versiones de servicios para evaluar la superficie expuesta.',
+      'El principio de mínimo privilegio limita el acceso de cada usuario o proceso únicamente a lo indispensable para su tarea.',
+  },
+  {
+    id: 'q-3',
+    moduleTag: 'MÓDULO: LEGISLACIÓN TI',
+    question: '¿Qué significan las siglas ARCO en protección de datos?',
+    options: [
+      { id: 'A', text: 'Acceso, Rectificación, Cancelación y Oposición' },
+      { id: 'B', text: 'Auditoría, Registro, Control y Operación' },
+      { id: 'C', text: 'Autenticación, Respaldo, Cifrado y Origen' },
+      { id: 'D', text: 'Autorización, Revisión, Copia y Olvido' },
+    ],
+    correctId: 'A',
+    xpCorrect: 150,
+    xpWrong: -50,
+    explanation:
+      'Los derechos ARCO garantizan al titular el control sobre sus datos personales en posesión de un responsable.',
   },
 ];
 
 export const INITIAL_LEADERBOARD: LeaderboardEntry[] = [
-  { rank: 1, name: 'Regina Calderon', xp: 9850 },
-  { rank: 2, name: 'Ian Mauricio Morales (Tu)', xp: 9120, isCurrentUser: true },
-  { rank: 3, name: 'Luvia Magali', xp: 8400 },
+  { rank: 1, name: 'Elena Rostova', xp: 2950 },
+  { rank: 2, name: 'Carlos Mendoza', xp: 2720 },
+  { rank: 3, name: 'Regina Calderón', xp: 2450, isCurrentUser: true },
 ];
 
-export const MEMORAMA_CARDS: MemoramaCardItem[] = [
+export const GLOSSARY_TERMS: GlossaryTerm[] = [
+  {
+    id: 'datos-personales-sensibles',
+    letter: 'D',
+    term: 'DATOS PERSONALES SENSIBLES',
+    category: 'LFPDPPP · ARTÍCULO 3',
+    definition:
+      'Aquellos datos personales que afecten a la esfera más íntima de su titular, o cuya utilización indebida pueda dar origen a discriminación o conlleve un riesgo grave para éste. En particular, se consideran sensibles aquellos que puedan revelar aspectos como origen racial o étnico, estado de salud presente y futuro, información genética, creencias religiosas, filosóficas y morales, afiliación sindical, opiniones políticas, preferencia sexual.',
+    legalRef:
+      'De acuerdo con la LFPDPPP, su tratamiento requiere consentimiento expreso y por escrito del titular, salvo excepciones legales.',
+    lexisTip:
+      'Tip de Lexis: Nunca guardes datos sensibles en logs ni los compartas sin consentimiento expreso.',
+  },
+  {
+    id: 'derechos-arco',
+    letter: 'D',
+    term: 'DERECHOS ARCO',
+    category: 'LFPDPPP · PROTECCIÓN DE DATOS',
+    definition:
+      'Conjunto de derechos del titular de datos personales para solicitar Acceso a sus datos, su Rectificación cuando sean inexactos o incompletos, su Cancelación cuando considere que no se requieren para las finalidades señaladas, u Oponerse al tratamiento por causa legítima.',
+    legalRef:
+      'Todo responsable debe establecer un procedimiento sencillo y gratuito para atender solicitudes ARCO en los plazos de ley.',
+    lexisTip:
+      'Tip de Lexis: Diseña tus sistemas pensando en cómo exportar, corregir o eliminar los datos de un usuario.',
+  },
+  {
+    id: 'consentimiento-expreso',
+    letter: 'C',
+    term: 'CONSENTIMIENTO EXPRESO',
+    category: 'LFPDPPP · PRINCIPIOS',
+    definition:
+      'Manifestación de la voluntad del titular de manera inequívoca —por escrito, de forma verbal, por medios electrónicos o cualquier otra tecnología— para autorizar el tratamiento o transferencia de sus datos personales.',
+    legalRef:
+      'Es obligatorio cuando la ley lo exige o cuando se trata de datos personales sensibles.',
+    lexisTip:
+      'Tip de Lexis: Las casillas premarcadas no constituyen un consentimiento válido.',
+  },
+  {
+    id: 'lfda-software',
+    letter: 'L',
+    term: 'LFDA Y PROGRAMAS DE CÓMPUTO',
+    category: 'PROPIEDAD INTELECTUAL · LFDA',
+    definition:
+      'La Ley Federal del Derecho de Autor protege los programas de cómputo en los mismos términos que las obras literarias, resguardando tanto su código fuente como su código objeto.',
+    legalRef:
+      'El uso, reproducción o distribución sin autorización del titular de derechos puede acarrear sanciones.',
+    lexisTip:
+      'Tip de Lexis: Verifica siempre el tipo de licencia antes de integrar librerías o herramientas.',
+  },
+];
+
+export const BADGES_LIST: BadgeItem[] = [
+  {
+    id: 'b-1',
+    title: 'Guardián de Privacidad',
+    earned: true,
+    meta: 'Completado el 15 Oct',
+    theme: 'cyan',
+  },
+  {
+    id: 'b-2',
+    title: 'Maestro Ético',
+    earned: true,
+    meta: 'Nivel 5 alcanzado',
+    theme: 'yellow',
+  },
+  {
+    id: 'b-3',
+    title: 'Cazador de Vulnerabilidades',
+    earned: true,
+    meta: 'Racha de 7 días',
+    theme: 'blue',
+  },
+  {
+    id: 'b-4',
+    title: 'Experto en LFPDPPP',
+    earned: true,
+    meta: '100% en Módulo Legal',
+    theme: 'purple',
+  },
+  {
+    id: 'b-5',
+    title: 'Auditor Senior',
+    earned: false,
+    meta: 'Bloqueado',
+    theme: 'locked',
+  },
+  {
+    id: 'b-6',
+    title: 'Defensor de Derechos ARCO',
+    earned: false,
+    meta: 'Bloqueado',
+    theme: 'locked',
+  },
+  {
+    id: 'b-7',
+    title: 'Arquitecto de Confianza',
+    earned: false,
+    meta: 'Bloqueado',
+    theme: 'locked',
+  },
+  {
+    id: 'b-8',
+    title: 'Leyenda LexCode',
+    earned: false,
+    meta: 'Bloqueado',
+    theme: 'locked',
+  },
+];
+
+export const MEMORAMA_CARDS: MemoramaCard[] = [
   {
     id: 'm1',
     pairId: 'p1',
     side: 'concept',
-    content: 'Datos Sensibles',
+    content: 'Phishing',
   },
   {
     id: 'm2',
     pairId: 'p2',
     side: 'concept',
-    content: 'Artículo 101 Bis',
+    content: 'LFPDPPP',
   },
   {
     id: 'm3',
     pairId: 'p3',
     side: 'concept',
-    content: 'Aviso de Privacidad',
+    content: 'Derechos ARCO',
   },
   {
     id: 'm4',
     pairId: 'p1',
     side: 'definition',
-    content: 'Informacion que afecta la esfera mas intima del titular.',
+    content: 'Suplantación para robar datos',
   },
   {
     id: 'm5',
     pairId: 'p4',
     side: 'concept',
-    content: 'Derechos ARCO',
+    content: 'Código Ético',
   },
   {
     id: 'm6',
     pairId: 'p2',
     side: 'definition',
-    content: 'Protección legal de software y programas de cómputo.',
+    content: 'Protección de datos personales',
   },
   {
     id: 'm7',
     pairId: 'p3',
     side: 'definition',
-    content: 'Documento que informa cómo se tratan los datos personales.',
+    content: 'Acceso, Rectificación, Cancelación y Oposición',
   },
   {
     id: 'm8',
     pairId: 'p4',
     side: 'definition',
-    content: 'Acceso, Rectificación, Cancelación y Oposición de datos.',
+    content: 'Principios de conducta profesional',
   },
 ];
 
 export const CLOZE_ITEMS: ClozeItem[] = [
   {
     id: 'c1',
-    ruleTitle: 'Completar la Norma (Articulo 3 LFPDPPP)',
-    prefix: 'Los datos personales',
-    suffix: 'son aquellos que afectan la esfera mas intima de su titular.',
-    answer: 'Sensibles',
-    options: ['Publicos', 'Sensibles', 'Financieros', 'Biometricos'],
+    ruleTitle: 'LFPDPPP - Articulo 15',
+    prefix: 'El responsable del tratamiento de datos debe obtener el',
+    answer: 'consentimiento',
+    suffix: 'del titular antes de divulgar su informacion.',
+    options: ['consentimiento', 'cifrado', 'respaldo', 'permiso'],
   },
   {
     id: 'c2',
-    ruleTitle: 'Completar la Norma (Seguridad de Datos)',
-    prefix: 'El responsable deberá implementar medidas de seguridad administrativas, técnicas y',
-    suffix: 'para proteger los datos.',
-    answer: 'Físicas',
-    options: ['Públicas', 'Físicas', 'Opcionales', 'Temporales'],
-  },
-];
-
-export const GLOSSARY_TERMS: GlossaryTerm[] = [
-  {
-    id: 'datos-personales',
-    letter: 'D',
-    category: 'CONCEPTO - LEGISLACIÓN',
-    term: 'DATOS PERSONALES',
-    definition:
-      'Cualquier información concerniente a una persona física identificada o identificable, como nombre, correo, matrícula, ubicación o identificadores digitales.',
-    legalRef:
-      'Art. 3, Frac. V de la LFPDPPP. Ley Federal de Protección de Datos Personales en Posesión de los Particulares.',
-    lexisTip: '¡Recuerda! Identificar a alguien de forma indirecta también cuenta como dato personal.',
-  },
-  {
-    id: 'datos-personales-sensibles',
-    letter: 'D',
-    category: 'CONCEPTO - LEGISLACIÓN',
-    term: 'DATOS PERSONALES SENSIBLES',
-    definition:
-      'Aquellos que afecten a la esfera más íntima de su titular, o cuya utilización indebida pueda dar origen a discriminación o conlleve un riesgo grave para este. En particular, se consideran sensibles aquellos que puedan revelar aspectos como origen racial o étnico, estado de salud presente y futuro, información genética, creencias religiosas, filosóficas y morales, afiliación sindical, opiniones políticas, preferencias sexuales.',
-    legalRef:
-      'Art. 3, Frac. VI de la LFPDPPP. Ley Federal de Protección de Datos Personales de los Particulares',
-    lexisTip:
-      '¡Recuerda! El tratamiento de estos datos requiere consentimiento expreso y por escrito del titular',
-  },
-  {
-    id: 'derechos-acceso',
-    letter: 'D',
-    category: 'CONCEPTO - LEGISLACIÓN',
-    term: 'DERECHOS DE ACCESO',
-    definition:
-      'Facultad del titular de solicitar al responsable qué datos personales suyos están en posesión de la organización y cómo están siendo tratados.',
-    legalRef: 'LFPDPPP · Derechos ARCO',
-    lexisTip: '¡Recuerda! Todo usuario tiene derecho a saber qué información suya almacena tu sistema.',
-  },
-  {
-    id: 'derechos-arco',
-    letter: 'D',
-    category: 'CONCEPTO - LEGISLACIÓN',
-    term: 'DERECHOS ARCO',
-    definition:
-      'Conjunto de derechos de Acceso, Rectificación, Cancelación y Oposición que permiten al titular controlar sus datos personales.',
-    legalRef: 'Capítulo IV de la LFPDPPP',
-    lexisTip: '¡Recuerda! Diseña flujos claros para que los usuarios puedan ejercer sus derechos ARCO.',
-  },
-  {
-    id: 'dilema-etico',
-    letter: 'D',
-    category: 'CONCEPTO - ÉTICA',
-    term: 'DILEMA ÉTICO',
-    definition:
-      'Situación en la que entran en conflicto dos o más principios, valores o deberes profesionales y no existe una salida trivial sin consecuencias.',
-    legalRef: 'Código de Ética Profesional IEEE / ACM',
-    lexisTip: '¡Recuerda! Evalúa siempre el impacto en las personas antes de priorizar velocidad o métricas.',
-  },
-];
-
-export const BADGES_LIST: BadgeItem[] = [
-  {
-    id: 'b1',
-    title: 'Quiz completado',
-    earned: true,
-    variant: 'check_ribbon',
-    meta: '10 oct · Obtenido',
-  },
-  {
-    id: 'b2',
-    title: 'Quiz ganado',
-    earned: true,
-    variant: 'star_laurel',
-    meta: 'Hoy · Obtenido',
-  },
-  {
-    id: 'b3',
-    title: 'Guardián de datos',
-    earned: true,
-    variant: 'check_ribbon',
-    meta: 'Obtenido',
-  },
-  {
-    id: 'b4',
-    title: 'Maestro Ético',
-    earned: true,
-    variant: 'star_laurel',
-    meta: 'Obtenido ayer',
-  },
-  {
-    id: 'b5',
-    title: 'Racha de 14 días',
-    earned: false,
-    variant: 'flame_lock',
-  },
-  {
-    id: 'b6',
-    title: 'Auditor invicto',
-    earned: false,
-    variant: 'doc_lock',
-  },
-  {
-    id: 'b7',
-    title: 'Experto LFPDPPP',
-    earned: false,
-    variant: 'flame_lock',
-  },
-  {
-    id: 'b8',
-    title: 'Defensor digital',
-    earned: false,
-    variant: 'doc_lock',
+    ruleTitle: 'Ciberseguridad - Control de Acceso',
+    prefix: 'Aplicar el principio de',
+    answer: 'minimo privilegio',
+    suffix: 'reduce el impacto si una cuenta es comprometida.',
+    options: ['minimo privilegio', 'acceso total', 'red abierta', 'copia publica'],
   },
 ];
 
 export const INITIAL_TEACHER_STUDENTS: TeacherStudent[] = [
   {
-    id: 's1',
-    name: 'Diana Hernández Gómez',
-    matricula: 'UP240192',
+    id: 'st-1',
+    name: 'Regina Calderón',
+    matricula: 'UP240102',
     currentModule: 'Módulo 3: Dilemas Éticos',
     average: 94.5,
     status: 'Activo',
     group: 'TIID-7A',
   },
   {
-    id: 's2',
-    name: 'Kevin Mauricio Morales',
-    matricula: 'UP240145',
-    currentModule: 'Módulo 4: Ciberseguridad',
-    average: 91.0,
+    id: 'st-2',
+    name: 'Luvia Hidalgo',
+    matricula: 'UP240118',
+    currentModule: 'Módulo 2: LFPDPPP',
+    average: 89.0,
     status: 'Activo',
     group: 'TIID-7A',
   },
   {
-    id: 's3',
-    name: 'Sofía Ramírez Cruz',
-    matricula: 'UP240210',
-    currentModule: 'Módulo 2: LFPDPPP',
-    average: 82.0,
+    id: 'st-3',
+    name: 'Ian Morales',
+    matricula: 'UP240145',
+    currentModule: 'Módulo 4: Propiedad Intelectual',
+    average: 92.8,
     status: 'Activo',
-    group: 'TIID-7B',
+    group: 'TIID-7A',
   },
   {
-    id: 's4',
-    name: 'Alejandro Vázquez Ruiz',
-    matricula: 'UP240088',
+    id: 'st-4',
+    name: 'Mateo Silva',
+    matricula: 'UP240201',
     currentModule: 'Módulo 1: Introducción',
-    average: 74.5,
+    average: 76.2,
     status: 'Pendiente',
     group: 'TIID-7B',
   },
@@ -473,36 +523,33 @@ export const INITIAL_TEACHER_MODULES: TeacherModule[] = [
   {
     id: 'mod-1',
     order: '01',
-    name: 'Módulo 1: Introducción',
-    standard: 'Fundamentos y Marco General',
+    name: 'Módulo 1: Introducción y Ética',
+    standard: 'Código ACM / IEEE',
     enrolledCount: 42,
     interactionType: 'Opción Múltiple (Reactivos Teóricos)',
     clozeItems: [],
     memoramaPairs: [],
-    quizQuestions: [],
+    quizQuestions: [
+      {
+        id: 'qq-1',
+        question: '¿Qué principio prioriza el bienestar público en ingeniería de software?',
+        correctAnswer: 'Interés público y seguridad',
+        distractors: ['Entrega más rápida posible', 'Ahorro en pruebas'],
+      },
+    ],
   },
   {
     id: 'mod-2',
     order: '02',
-    name: 'Módulo 2: LFPDPPP',
-    standard: 'Protección de Datos Personales',
-    enrolledCount: 38,
+    name: 'Módulo 2: LFPDPPP y Privacidad',
+    standard: 'Ley Federal de Datos Personales',
+    enrolledCount: 42,
     interactionType: 'Completar Palabras (Espacios en Blanco)',
     clozeItems: [
       {
         id: 'cl-1',
         template:
-          'Todo tratamiento de datos personales debe estar sujeto al consentimiento [tácito o expreso].',
-      },
-      {
-        id: 'cl-2',
-        template:
-          'El responsable deberá implementar medidas de seguridad administrativas y [físicas].',
-      },
-      {
-        id: 'cl-3',
-        template:
-          'Los datos personales sensibles afectan la esfera más íntima de su [titular].',
+          'Todo tratamiento de datos personales debe sujetarse a los principios de licitud, [consentimiento] y finalidad.',
       },
     ],
     memoramaPairs: [],
@@ -511,28 +558,34 @@ export const INITIAL_TEACHER_MODULES: TeacherModule[] = [
   {
     id: 'mod-3',
     order: '03',
-    name: 'Módulo 3: Dilemas Éticos',
-    standard: 'LFDA y Propiedad Intelectual',
-    enrolledCount: 35,
+    name: 'Módulo 3: Dilemas Éticos y Casos',
+    standard: 'Casos Prácticos de Industria',
+    enrolledCount: 38,
     interactionType: 'Memorama (Conexiones Legales)',
     clozeItems: [],
     memoramaPairs: [
       {
         id: 'mp-1',
-        concept: 'Artículo 101 Bis (LFDA)',
-        definition: 'Protección legal de software y compilados',
+        concept: 'Datos Sensibles',
+        definition: 'Requieren consentimiento expreso y por escrito',
       },
       {
         id: 'mp-2',
-        concept: 'Secreto Industrial',
-        definition: 'Información confidencial de valor comercial',
-      },
-      {
-        id: 'mp-3',
-        concept: 'Aviso de Privacidad',
-        definition: 'Documento físico o electrónico sobre uso de datos',
+        concept: 'Derechos ARCO',
+        definition: 'Acceso, Rectificación, Cancelación y Oposición',
       },
     ],
+    quizQuestions: [],
+  },
+  {
+    id: 'mod-4',
+    order: '04',
+    name: 'Módulo 4: Propiedad Intelectual',
+    standard: 'LFDA / Licenciamiento OSS',
+    enrolledCount: 35,
+    interactionType: 'Opción Múltiple (Reactivos Teóricos)',
+    clozeItems: [],
+    memoramaPairs: [],
     quizQuestions: [],
   },
 ];

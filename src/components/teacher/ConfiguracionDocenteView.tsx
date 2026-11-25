@@ -1,8 +1,15 @@
 'use client';
 
 import React, { useState } from 'react';
+import { LogOut } from 'lucide-react';
 
-export const ConfiguracionDocenteView: React.FC = () => {
+interface ConfiguracionDocenteViewProps {
+  onLogout?: () => void;
+}
+
+export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> = ({
+  onLogout,
+}) => {
   const [alertsEnabled, setAlertsEnabled] = useState(true);
   const [savedNote, setSavedNote] = useState(false);
 
@@ -17,7 +24,6 @@ export const ConfiguracionDocenteView: React.FC = () => {
         </div>
 
         <div className="space-y-4">
-          {/* Fila 1: Perfil Institucional */}
           <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Perfil Institucional</h2>
@@ -37,7 +43,6 @@ export const ConfiguracionDocenteView: React.FC = () => {
             </button>
           </div>
 
-          {/* Fila 2: Apariencia y Tema */}
           <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Apariencia y Tema</h2>
@@ -50,7 +55,6 @@ export const ConfiguracionDocenteView: React.FC = () => {
             </span>
           </div>
 
-          {/* Fila 3: Avisos y Retos de Misiones */}
           <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Avisos y Retos de Misiones</h2>
@@ -74,6 +78,25 @@ export const ConfiguracionDocenteView: React.FC = () => {
               <span className="w-5 h-5 rounded-full bg-black block" />
             </button>
           </div>
+
+          {onLogout && (
+            <div className="bg-[#121212] border border-[#FF3366]/40 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <h2 className="text-sm font-bold text-white">Sesión Administrativa</h2>
+                <p className="text-xs text-[#757575] mt-1">
+                  Cierra tu sesión actual para regresar a la pantalla principal de LexCode.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={onLogout}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1A080C] border border-[#FF3366] text-xs font-bold text-[#FF3366] hover:bg-[#2A0A14] transition cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Cerrar Sesión</span>
+              </button>
+            </div>
+          )}
         </div>
 
         {savedNote && (

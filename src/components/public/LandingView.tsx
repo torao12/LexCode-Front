@@ -17,19 +17,15 @@ export const LandingView: React.FC<LandingViewProps> = ({
 }) => {
   return (
     <div className="min-h-screen bg-[#000000] text-white relative overflow-hidden flex flex-col justify-between">
-      {/* Patrón de puntos inferior izquierdo */}
       <div
         className="pointer-events-none absolute left-0 bottom-0 w-[260px] h-[340px] lexcode-dot-pattern opacity-80"
         aria-hidden="true"
       />
-
-      {/* Patrón de puntos y cuadrícula superior derecha */}
       <div
         className="pointer-events-none absolute right-0 top-0 w-[460px] h-[440px] lexcode-dot-pattern opacity-90"
         aria-hidden="true"
       />
 
-      {/* Encabezado superior */}
       <header className="relative z-10 max-w-6xl w-full mx-auto px-8 pt-7 pb-4 flex items-center justify-between">
         <LexCodeLogo size="md" />
 
@@ -58,9 +54,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </nav>
       </header>
 
-      {/* Sección Hero */}
       <main className="relative z-10 max-w-6xl w-full mx-auto px-8 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-        {/* Columna izquierda */}
         <div className="lg:col-span-6 space-y-6">
           <p className="text-[11px] font-bold tracking-[0.14em] text-[#00FFEF] uppercase">
             APRENDIZAJE GAMIFICADO PARA INGENIEROS
@@ -94,7 +88,6 @@ export const LandingView: React.FC<LandingViewProps> = ({
             </button>
           </div>
 
-          {/* Métricas inferiores */}
           <div className="flex items-center gap-8 pt-6">
             <div>
               <div className="text-2xl font-bold text-white">+20</div>
@@ -116,19 +109,15 @@ export const LandingView: React.FC<LandingViewProps> = ({
           </div>
         </div>
 
-        {/* Columna derecha: Lexis y píldoras de especialidad */}
         <div className="lg:col-span-6 relative min-h-[380px] flex items-center justify-center">
           <div className="w-full h-[360px] rounded-2xl lexcode-grid-pattern relative flex items-center justify-center">
-            {/* Píldora superior izquierda */}
             <div className="absolute top-2 left-8 bg-[#0B0B0B] border border-[#00FFEF] rounded-xl px-4 py-3 flex items-center gap-3 shadow-lg">
               <span className="w-6 h-6 rounded-full bg-[#00FFEF] shrink-0" />
               <span className="text-xs font-semibold text-white">Etica Profesional</span>
             </div>
 
-            {/* Mascota Lexis */}
             <LexisMascot expression="happy" className="w-48 h-56 mt-6" />
 
-            {/* Píldora inferior derecha */}
             <div className="absolute bottom-2 right-4 bg-[#111111] border border-[#252525] rounded-xl px-5 py-3.5 flex items-center gap-3.5">
               <span className="w-7 h-7 rounded-full bg-[#3A3A3A] shrink-0" />
               <span className="text-xs font-semibold text-[#A3A3A3]">Ciberseguridad</span>

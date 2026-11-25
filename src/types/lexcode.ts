@@ -1,4 +1,5 @@
 export type UserRole = 'student' | 'teacher' | 'admin';
+<<<<<<< HEAD
 
 export type LexisExpression =
   | 'happy'
@@ -7,6 +8,8 @@ export type LexisExpression =
   | 'angry'
   | 'book_bulb'
   | 'wave';
+=======
+>>>>>>> cee7c55 (feat: integrate auth session, chatbot payload, progress tracking, and hydration guard)
 
 export type StudentRoute =
   | 'dashboard'
@@ -28,11 +31,9 @@ export type AdminRoute =
   | 'bitacora'
   | 'perfil';
 
-export type TeacherRoute =
-  | 'dashboard'
-  | 'alumnos'
-  | 'modulos'
-  | 'configuracion';
+export type TeacherRoute = 'dashboard' | 'alumnos' | 'modulos' | 'configuracion';
+
+export type LexisExpression = 'happy' | 'wave' | 'neutral' | 'sad' | 'angry' | 'book_bulb';
 
 export interface DilemaOption {
   id: 'A' | 'B' | 'C' | 'D';
@@ -47,11 +48,11 @@ export interface DilemaCase {
   id: string;
   number: number;
   title: string;
-  category: string;
   subtitle: string;
+  category: string;
+  status: 'completed' | 'active' | 'locked';
   description: string;
   lawQuote: string;
-  status: 'active' | 'locked' | 'completed';
   options: DilemaOption[];
 }
 
@@ -59,27 +60,32 @@ export interface QuizQuestion {
   id: string;
   moduleTag: string;
   question: string;
-  options: {
-    id: 'A' | 'B' | 'C' | 'D';
-    text: string;
-  }[];
+  options: { id: 'A' | 'B' | 'C' | 'D'; text: string }[];
   correctId: 'A' | 'B' | 'C' | 'D';
   xpCorrect: number;
   xpWrong: number;
   explanation: string;
 }
 
-export interface QuizModuleCard {
+export interface GlossaryTerm {
   id: string;
-  title: string;
-  questionsCount: number;
-  description: string;
-  xpReward: string;
-  accent: 'cyan' | 'pink' | 'muted';
-  completedBadge?: string;
+  letter: string;
+  term: string;
+  category: string;
+  definition: string;
+  legalRef: string;
+  lexisTip: string;
 }
 
-export interface MemoramaCardItem {
+export interface BadgeItem {
+  id: string;
+  title: string;
+  earned: boolean;
+  meta?: string;
+  theme: 'cyan' | 'yellow' | 'blue' | 'purple' | 'locked';
+}
+
+export interface MemoramaCard {
   id: string;
   pairId: string;
   side: 'concept' | 'definition';
@@ -90,27 +96,9 @@ export interface ClozeItem {
   id: string;
   ruleTitle: string;
   prefix: string;
-  suffix: string;
   answer: string;
+  suffix: string;
   options: string[];
-}
-
-export interface GlossaryTerm {
-  id: string;
-  letter: string;
-  category: string;
-  term: string;
-  definition: string;
-  legalRef: string;
-  lexisTip: string;
-}
-
-export interface BadgeItem {
-  id: string;
-  title: string;
-  earned: boolean;
-  variant: 'check_ribbon' | 'star_laurel' | 'flame_lock' | 'doc_lock';
-  meta?: string;
 }
 
 export interface LeaderboardEntry {

@@ -107,12 +107,19 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
                 >
                   <div
                     className={`w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 ${
-                      isSelected ? 'border-[#00FFEF] text-[#00FFEF]' : 'border-[#444444] text-[#A3A3A3]'
+                      isSelected
+                        ? 'border-[#00FFEF] text-[#00FFEF]'
+                        : 'border-[#444444] text-[#A3A3A3]'
                     }`}
                   >
                     {mod.id === 'etica' && (
                       <svg viewBox="0 0 32 32" className="w-7 h-7" fill="none">
-                        <path d="M8 14H24M16 14V24M11 14V19M21 14V19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        <path
+                          d="M8 14H24M16 14V24M11 14V19M21 14V19"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                        />
                       </svg>
                     )}
                     {mod.id === 'legislacion' && <FileText className="w-7 h-7" />}

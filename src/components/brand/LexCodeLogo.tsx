@@ -1,40 +1,50 @@
-'use client';
-
 import React from 'react';
 
 interface LexCodeLogoProps {
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md';
 }
 
 export const LexCodeLogo: React.FC<LexCodeLogoProps> = ({ size = 'md' }) => {
-  const iconDimensions =
-    size === 'sm' ? 'w-7 h-7' : size === 'lg' ? 'w-12 h-12' : 'w-9 h-9';
-  const textClasses =
-    size === 'sm'
-      ? 'text-xl'
-      : size === 'lg'
-        ? 'text-4xl'
-        : 'text-2xl';
+  const isSmall = size === 'sm';
 
   return (
     <div className="inline-flex items-center gap-2.5 select-none">
       <svg
-        viewBox="0 0 64 56"
-        className={`${iconDimensions} shrink-0`}
+        width={isSmall ? 24 : 30}
+        height={isSmall ? 24 : 30}
+        viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
       >
-        <circle cx="32" cy="7" r="2.2" fill="#00FFEF" />
-        <line x1="32" y1="9" x2="32" y2="47" stroke="#00FFEF" strokeWidth="2.4" />
-        <line x1="12" y1="16" x2="52" y2="16" stroke="#00FFEF" strokeWidth="2.4" strokeLinecap="round" />
-        <path d="M18 11L9 16L18 21" stroke="#00FFEF" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-        <path d="M46 11L55 16L46 21" stroke="#00FFEF" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-        <rect x="20" y="47" width="24" height="3.2" rx="1.5" fill="#00FFEF" />
+        <path
+          d="M9 9L5 16L9 23"
+          stroke="#FFFFFF"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M23 9L27 16L23 23"
+          stroke="#FFFFFF"
+          strokeWidth="2.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M16 7V25M10 13H22M11 13L9.5 18.5H12.5L11 13ZM21 13L19.5 18.5H22.5L21 13Z"
+          stroke="#00FFEF"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
       </svg>
-      <span className={`${textClasses} font-bold tracking-tight leading-none`}>
-        <span className="text-white">Lex</span>
-        <span className="text-[#00FFEF]">Code</span>
+      <span
+        className={`${
+          isSmall ? 'text-lg' : 'text-2xl'
+        } font-bold tracking-tight text-white leading-none`}
+      >
+        Lex<span className="text-[#00FFEF]">Code</span>
       </span>
     </div>
   );

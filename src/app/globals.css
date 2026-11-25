@@ -1,42 +1,34 @@
 @import "tailwindcss";
 
-:root {
-  --bg-canvas: #000000;
-  --bg-surface: #111111;
-  --bg-surface-elevated: #141414;
-  --accent-cyan: #00FFEF;
-  --accent-cyan-dark: #002A28;
-  --accent-cyan-mid: #004D49;
-  --accent-gold: #FFD43B;
-  --accent-error: #FF3366;
-  --accent-error-bg: #1A0A0A;
-  --text-primary: #FFFFFF;
-  --text-secondary: #A3A3A3;
-  --border-subtle: #222222;
-  --border-input: #757575;
-}
+@layer base {
+  :root {
+    --lexcode-bg-canvas: #000000;
+    --lexcode-bg-surface: #111111;
+    --lexcode-bg-surface-elevated: #1c1c1c;
+    --lexcode-accent-cyan: #00ffef;
+    --lexcode-accent-pink: #ff3366;
+    --lexcode-text-primary: #ffffff;
+    --lexcode-text-secondary: #a3a3a3;
+    --lexcode-text-muted: #757575;
+    --lexcode-border-subtle: #242424;
+  }
 
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  background-color: var(--bg-canvas);
-  color: var(--text-primary);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+  body {
+    background-color: #000000;
+    color: #ffffff;
+  }
 }
 
 .lexcode-dot-pattern {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1.35px, transparent 1.35px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.16) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
 }
 
 .lexcode-grid-pattern {
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px;
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.18) 1.5px, transparent 1.5px);
+  background-size: 48px 48px, 48px 48px, 24px 24px;
+  background-position: 0 0, 0 0, 12px 12px;
 }

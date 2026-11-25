@@ -1,29 +1,60 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { MEMORAMA_CARDS } from '@/data/mockLexCode';
+import { MemoramaCard } from '@/types/lexcode';
 
 interface MemoramaGameProps {
   onUpdateXp: (delta: number) => void;
+  onCompleteActivity?: (activityId: string) => void;
   onExit: () => void;
+}
+
+function shuffleCards(cards: MemoramaCard[]): MemoramaCard[] {
+  const copy = [...cards];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
 }
 
 export const MemoramaGame: React.FC<MemoramaGameProps> = ({
   onUpdateXp,
+  onCompleteActivity,
   onExit,
 }) => {
-  const [flippedIds, setFlippedIds] = useState<string[]>(['m1', 'm4']);
-  const [matchedPairs, setMatchedPairs] = useState<string[]>(['p1']);
-  const [moves, setMoves] = useState<number>(12);
-  const [seconds, setSeconds] = useState<number>(105);
-  const [justMatchedBanner, setJustMatchedBanner] = useState<boolean>(true);
+  const totalPairs = useMemo(
+    () => new Set(MEMORAMA_CARDS.map((c) => c.pairId)).size,
+    []
+  );
+
+  const [deck, setDeck] = useState<MemoramaCard[]>(() => shuffleCards(MEMORAMA_CARDS));
+  const [flippedIds, setFlippedIds] = useState<string[]>([]);
+  const [matchedPairs, setMatchedPairs] = useState<string[]>([]);
+  const [moves, setMoves] = useState<number>(0);
+  const [seconds, setSeconds] = useState<number>(0);
+  const [earnedSessionXp, setEarnedSessionXp] = useState<number>(0);
+  const [justMatchedBanner, setJustMatchedBanner] = useState<boolean>(false);
+  const [isLocked, setIsLocked] = useState<boolean>(false);
+  const [completedReported, setCompletedReported] = useState<boolean>(false);
+
+  const isFinished = matchedPairs.length >= totalPairs && totalPairs > 0;
 
   useEffect(() => {
+    if (isFinished) return;
     const timer = setInterval(() => {
       setSeconds((prev) => prev + 1);
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isFinished]);
+
+  useEffect(() => {
+    if (isFinished && !completedReported) {
+      setCompletedReported(true);
+      onCompleteActivity?.('memorama');
+    }
+  }, [isFinished, completedReported, onCompleteActivity]);
 
   const formatTime = (totalSec: number) => {
     const mins = String(Math.floor(totalSec / 60)).padStart(2, '0');
@@ -31,8 +62,25 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
     return `${mins}:${secs}`;
   };
 
+  const handleRestart = () => {
+    setDeck(shuffleCards(MEMORAMA_CARDS));
+    setFlippedIds([]);
+    setMatchedPairs([]);
+    setMoves(0);
+    setSeconds(0);
+    setEarnedSessionXp(0);
+    setJustMatchedBanner(false);
+    setIsLocked(false);
+    setCompletedReported(false);
+  };
+
   const handleCardClick = (id: string, pairId: string) => {
-    if (flippedIds.includes(id) || matchedPairs.includes(pairId) || flippedIds.length >= 2) {
+    if (
+      isLocked ||
+      flippedIds.includes(id) ||
+      matchedPairs.includes(pairId) ||
+      flippedIds.length >= 2
+    ) {
       return;
     }
 
@@ -41,19 +89,28 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
 
     if (nextFlipped.length === 2) {
       setMoves((prev) => prev + 1);
-      const firstCard = MEMORAMA_CARDS.find((c) => c.id === nextFlipped[0]);
-      const secondCard = MEMORAMA_CARDS.find((c) => c.id === nextFlipped[1]);
+      setIsLocked(true);
+
+      const firstCard = deck.find((c) => c.id === nextFlipped[0]);
+      const secondCard = deck.find((c) => c.id === nextFlipped[1]);
 
       if (firstCard && secondCard && firstCard.pairId === secondCard.pairId) {
-        setMatchedPairs((prev) => [...prev, firstCard.pairId]);
+        const nextMatched = [...matchedPairs, firstCard.pairId];
+        setMatchedPairs(nextMatched);
         setJustMatchedBanner(true);
+        setEarnedSessionXp((prev) => prev + 50);
         onUpdateXp(50);
+
         setTimeout(() => {
           setFlippedIds([]);
-        }, 550);
+          setJustMatchedBanner(false);
+          setIsLocked(false);
+        }, 650);
       } else {
+        setJustMatchedBanner(false);
         setTimeout(() => {
           setFlippedIds([]);
+          setIsLocked(false);
         }, 850);
       }
     }
@@ -82,9 +139,37 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
           </p>
         </div>
 
-        {/* Tablero de 8 cartas (2 filas x 4 columnas) */}
+        {isFinished && (
+          <div className="bg-[#002A28]/65 border-2 border-[#00FFEF] rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div className="text-lg font-bold text-[#00FFEF]">
+                ¡Memorama completado!
+              </div>
+              <p className="text-xs text-[#D4D4D4] mt-1">
+                Encontraste los {totalPairs} pares en {moves} movimientos ({formatTime(seconds)}) y ganaste +{earnedSessionXp} XP.
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handleRestart}
+                className="px-4 py-2.5 rounded-xl bg-[#00FFEF] text-black text-xs font-bold hover:brightness-105 transition cursor-pointer"
+              >
+                Jugar de nuevo
+              </button>
+              <button
+                type="button"
+                onClick={onExit}
+                className="px-4 py-2.5 rounded-xl bg-[#141414] border border-[#2A2A2A] text-xs font-bold text-white hover:border-[#00FFEF] transition cursor-pointer"
+              >
+                Ver actividades
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
-          {MEMORAMA_CARDS.map((card) => {
+          {deck.map((card) => {
             const isMatched = matchedPairs.includes(card.pairId);
             const isFlipped = flippedIds.includes(card.id) || isMatched;
 
@@ -124,7 +209,6 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
         </div>
       </div>
 
-      {/* Panel derecho de métricas y recompensa */}
       <div className="lg:col-span-4 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-7 space-y-6 text-center">
         {justMatchedBanner ? (
           <div className="bg-[#002A28]/70 border border-[#00FFEF] rounded-xl p-4">
@@ -140,19 +224,25 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
           </div>
         )}
 
-        {!justMatchedBanner && (
-          <div>
-            <div className="text-xs font-semibold text-[#A3A3A3]">Movimientos</div>
-            <div className="text-2xl font-bold text-white mt-1">{moves}</div>
-          </div>
-        )}
+        <div>
+          <div className="text-xs font-semibold text-[#A3A3A3]">Movimientos</div>
+          <div className="text-2xl font-bold text-white mt-1">{moves}</div>
+        </div>
 
         <div>
           <div className="text-xs font-semibold text-[#A3A3A3]">Pares Encontrados</div>
           <div className="text-2xl font-bold text-white mt-1">
-            {matchedPairs.length} / 4
+            {matchedPairs.length} / {totalPairs}
           </div>
         </div>
+
+        <button
+          type="button"
+          onClick={handleRestart}
+          className="w-full py-2.5 rounded-xl bg-[#181818] border border-[#282828] text-xs font-semibold text-[#A3A3A3] hover:text-white hover:border-[#00FFEF] transition cursor-pointer"
+        >
+          Reiniciar partida
+        </button>
       </div>
     </div>
   );

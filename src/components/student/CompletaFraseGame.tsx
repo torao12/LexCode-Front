@@ -5,27 +5,39 @@ import { CLOZE_ITEMS } from '@/data/mockLexCode';
 
 interface CompletaFraseGameProps {
   onUpdateXp: (delta: number) => void;
+  onCompleteActivity?: (activityId: string) => void;
   onExit: () => void;
 }
 
 export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
   onUpdateXp,
+  onCompleteActivity,
   onExit,
 }) => {
   const [index, setIndex] = useState(0);
   const [selectedWord, setSelectedWord] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'idle' | 'correct' | 'wrong'>('idle');
+  const [correctAnswersCount, setCorrectAnswersCount] = useState(0);
+  const [sessionXp, setSessionXp] = useState(0);
+  const [isSummary, setIsSummary] = useState(false);
 
   const currentItem = CLOZE_ITEMS[index] || CLOZE_ITEMS[0];
-  const progressPct = Math.round(((index + (feedback === 'correct' ? 1 : 0.45)) / CLOZE_ITEMS.length) * 100);
+  const progressPct = isSummary
+    ? 100
+    : Math.round(
+        ((index + (feedback === 'correct' ? 1 : 0.45)) / CLOZE_ITEMS.length) * 100
+      );
 
   const handleCheck = () => {
-    if (!selectedWord) return;
+    if (!selectedWord || feedback === 'correct') return;
     if (selectedWord.toLowerCase() === currentItem.answer.toLowerCase()) {
       setFeedback('correct');
+      setCorrectAnswersCount((prev) => prev + 1);
+      setSessionXp((prev) => prev + 100);
       onUpdateXp(100);
     } else {
       setFeedback('wrong');
+      setSessionXp((prev) => prev - 25);
       onUpdateXp(-25);
     }
   };
@@ -36,14 +48,68 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
     if (index + 1 < CLOZE_ITEMS.length) {
       setIndex((prev) => prev + 1);
     } else {
-      onExit();
+      setIsSummary(true);
+      onCompleteActivity?.('cloze');
     }
   };
+
+  const handleRestart = () => {
+    setIndex(0);
+    setSelectedWord(null);
+    setFeedback('idle');
+    setCorrectAnswersCount(0);
+    setSessionXp(0);
+    setIsSummary(false);
+  };
+
+  if (isSummary) {
+    return (
+      <div className="max-w-3xl bg-[#111111] border border-[#00FFEF] rounded-2xl p-8 space-y-6">
+        <div>
+          <span className="text-xs font-bold uppercase tracking-wider text-[#00FFEF]">
+            Actividad completada
+          </span>
+          <h1 className="text-3xl font-bold text-white mt-1">
+            Completa la Frase — Resumen
+          </h1>
+          <p className="text-sm text-[#A3A3A3] mt-2">
+            Acertaste {correctAnswersCount} de {CLOZE_ITEMS.length} enunciados normativos.
+          </p>
+        </div>
+
+        <div className="bg-[#0A0A0A] border border-[#222222] rounded-xl p-5 flex items-center justify-between">
+          <span className="text-xs text-[#A3A3A3]">XP neta de la sesión</span>
+          <span className="text-xl font-bold text-[#00FFEF]">
+            {sessionXp >= 0 ? `+${sessionXp}` : sessionXp} XP
+          </span>
+        </div>
+
+        <div className="flex flex-wrap gap-3 pt-2">
+          <button
+            type="button"
+            onClick={handleRestart}
+            className="px-6 py-3 rounded-xl bg-[#181818] border border-[#2A2A2A] text-xs font-bold text-white hover:border-[#00FFEF] transition cursor-pointer"
+          >
+            Practicar de nuevo
+          </button>
+          <button
+            type="button"
+            onClick={onExit}
+            className="px-6 py-3 rounded-xl bg-[#00FFEF] text-black text-xs font-bold hover:brightness-105 transition cursor-pointer"
+          >
+            Volver a Actividades
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl space-y-6">
       <div className="flex items-center justify-between">
-        <div className="text-sm font-bold text-white">{currentItem.ruleTitle}</div>
+        <div className="text-sm font-bold text-white">
+          {currentItem.ruleTitle} ({index + 1}/{CLOZE_ITEMS.length})
+        </div>
         <button
           type="button"
           onClick={onExit}
@@ -53,7 +119,6 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         </button>
       </div>
 
-      {/* Barra de progreso */}
       <div className="w-full h-2 rounded-full bg-[#242424] overflow-hidden">
         <div
           className="h-full bg-[#00FFEF] rounded-full transition-all duration-300"
@@ -61,7 +126,6 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         />
       </div>
 
-      {/* Enunciado con hueco interactivo */}
       <div className="pt-4 space-y-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-white">
           Completa la siguiente frase con el termino legal correcto:
@@ -113,7 +177,6 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         </div>
       </div>
 
-      {/* Barra inferior de comprobación */}
       <div className="mt-8 bg-[#0D0D0D] border border-[#1E1E1E] rounded-2xl px-6 py-4 flex items-center justify-between gap-4">
         <div className="text-xs">
           {feedback === 'correct' && (

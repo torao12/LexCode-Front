@@ -30,29 +30,24 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
   const [modal, setModal] = useState<ActiveModal>(null);
   const [configureTab, setConfigureTab] = useState<'datos' | 'contenido'>('contenido');
 
-  // Estado para Crear Módulo
   const [modName, setModName] = useState('Módulo 5: Auditoría y Ciberseguridad');
   const [modStandard, setModStandard] = useState('ISO/IEC 27001');
   const [modInteraction, setModInteraction] = useState<ModuleInteractionType>(
     'Opción Múltiple (Reactivos Teóricos)'
   );
 
-  // Estado para Editar Módulo
   const [editName, setEditName] = useState('');
   const [editStandard, setEditStandard] = useState('');
 
-  // Estado para Agregar Enunciado (Completar Palabras)
   const [clozeTemplate, setClozeTemplate] = useState(
     'El responsable deberá implementar medidas de seguridad administrativas, técnicas y [físicas] para proteger los datos.'
   );
 
-  // Estado para Agregar Pareja (Memorama)
   const [pairConcept, setPairConcept] = useState('Artículo 101 Bis (LFDA)');
   const [pairDefinition, setPairDefinition] = useState(
     'Protección legal de software y compilados'
   );
 
-  // Estado para Agregar Pregunta (Quiz)
   const [qText, setQText] = useState(
     '¿Cuál es el protocolo cifrado estándar recomendado para conexiones seguras web?'
   );
@@ -66,7 +61,10 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
       ? modules.find((m) => m.id === modal.moduleId) || null
       : null;
 
-  const openConfigureModal = (mod: TeacherModule, initialTab: 'datos' | 'contenido' = 'contenido') => {
+  const openConfigureModal = (
+    mod: TeacherModule,
+    initialTab: 'datos' | 'contenido' = 'contenido'
+  ) => {
     setEditName(mod.name);
     setEditStandard(mod.standard);
     setConfigureTab(initialTab);
@@ -164,7 +162,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
       </div>
 
       <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-7 space-y-6">
-        {/* Encabezado de sección */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white">
@@ -185,7 +182,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </div>
 
         {visibleModules.length === 0 ? (
-          /* Estado vacío (Administrar modulos-1.png) */
           <div className="pt-2">
             <div className="grid grid-cols-5 text-[11px] font-semibold uppercase tracking-wider text-[#666666] pb-3 border-b border-[#181818]">
               <span>ORDEN</span>
@@ -215,7 +211,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
             </div>
           </div>
         ) : (
-          /* Tabla de módulos (Administrar modulos.png) */
           <>
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse">
@@ -284,7 +279,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         )}
       </div>
 
-      {/* Modal 1: Paso 1 Crear Nuevo Módulo (Agregr modulo.png) */}
       {modal?.type === 'create' && (
         <div
           role="dialog"
@@ -390,7 +384,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </div>
       )}
 
-      {/* Modal 2: Configurar Módulo (Acciones modulo.png / Configurar Modulo Completar.png / Memorama.png / Quizz.png) */}
       {modal?.type === 'configure' && targetModule && (
         <div
           role="dialog"
@@ -429,7 +422,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
               </button>
             </div>
 
-            {/* Pestañas 1. Datos / 2. Contenido */}
             <div className="flex items-center justify-between gap-4">
               <div className="inline-flex items-center gap-1 bg-[#0B0B0B] border border-[#242424] rounded-xl p-1 text-xs">
                 <button
@@ -553,9 +545,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
                           ? 'TEXTO CON BLANCOS (USA [ ] PARA LAS PALABRAS)'
                           : 'TEXTO CON BLANCOS'}
                       </div>
-                      <p className="text-xs sm:text-sm text-[#D4D4D4]">
-                        {item.template.replace(/\[([^\]]+)\]/g, '[$1]')}
-                      </p>
+                      <p className="text-xs sm:text-sm text-[#D4D4D4]">{item.template}</p>
                     </div>
                   ))}
 
@@ -634,7 +624,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </div>
       )}
 
-      {/* Modal Agregar Nuevo Enunciado (Configurar Modulo Completar-1.png) */}
       {modal?.type === 'add_cloze' && targetModule && (
         <div
           role="dialog"
@@ -695,7 +684,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </div>
       )}
 
-      {/* Modal Agregar Nueva Pareja (Configurar Modulo Memorama-1.png) */}
       {modal?.type === 'add_pair' && targetModule && (
         <div
           role="dialog"
@@ -765,7 +753,6 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </div>
       )}
 
-      {/* Modal Agregar Nueva Pregunta (Configurar Modulo Quizz-1.png) */}
       {modal?.type === 'add_question' && targetModule && (
         <div
           role="dialog"

@@ -16,7 +16,6 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
 }) => {
   return (
     <div className="max-w-6xl space-y-6">
-      {/* 4 tarjetas superiores de métricas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div
           onClick={() => onNavigateTeacher('alumnos')}
@@ -49,7 +48,6 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
         </div>
       </div>
 
-      {/* Fila inferior: Gráfica de avance + Últimas entregas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <div className="lg:col-span-8 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6">
           <h2 className="text-base font-bold text-white mb-4">

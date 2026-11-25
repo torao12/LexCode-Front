@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import { Check } from 'lucide-react';
 import {
+  BADGES_LIST,
   INITIAL_LEADERBOARD,
   QUIZ_MODULES,
   QUIZ_QUESTIONS,
 } from '@/data/mockLexCode';
 import { LexisMascot } from '@/components/brand/LexisMascot';
 import { BadgeHex } from '@/components/brand/BadgeHex';
-import { BADGES_LIST } from '@/data/mockLexCode';
 
 interface QuizzesViewProps {
   xp: number;
   onUpdateXp: (delta: number) => void;
+  onCompleteActivity?: (activityId: string) => void;
   onExitToActivities: () => void;
 }
 
@@ -22,6 +23,7 @@ type QuizPhase = 'modules' | 'active' | 'leaderboard';
 export const QuizzesView: React.FC<QuizzesViewProps> = ({
   xp,
   onUpdateXp,
+  onCompleteActivity,
   onExitToActivities,
 }) => {
   const [phase, setPhase] = useState<QuizPhase>('modules');
@@ -29,6 +31,8 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
   const [questionIdx, setQuestionIdx] = useState<number>(0);
   const [selectedOptionId, setSelectedOptionId] = useState<'A' | 'B' | 'C' | 'D' | null>(null);
   const [secondsLeft, setSecondsLeft] = useState<number>(14);
+  const [sessionXp, setSessionXp] = useState<number>(0);
+  const [correctCount, setCorrectCount] = useState<number>(0);
 
   const currentQuestion = QUIZ_QUESTIONS[questionIdx] || QUIZ_QUESTIONS[0];
   const lastBadge = BADGES_LIST.find((b) => b.title === 'Maestro Ético') || BADGES_LIST[1];
@@ -45,6 +49,8 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
     setQuestionIdx(0);
     setSelectedOptionId(null);
     setSecondsLeft(14);
+    setSessionXp(0);
+    setCorrectCount(0);
     setPhase('active');
   };
 
@@ -52,8 +58,11 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
     if (selectedOptionId) return;
     setSelectedOptionId(optionId);
     if (optionId === currentQuestion.correctId) {
+      setCorrectCount((prev) => prev + 1);
+      setSessionXp((prev) => prev + currentQuestion.xpCorrect);
       onUpdateXp(currentQuestion.xpCorrect);
     } else {
+      setSessionXp((prev) => prev + currentQuestion.xpWrong);
       onUpdateXp(currentQuestion.xpWrong);
     }
   };
@@ -64,6 +73,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
     if (questionIdx + 1 < QUIZ_QUESTIONS.length) {
       setQuestionIdx((prev) => prev + 1);
     } else {
+      onCompleteActivity?.(`quiz-${selectedModuleId}`);
       setPhase('leaderboard');
     }
   };
@@ -149,14 +159,13 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
           </div>
         </div>
 
-        {/* Panel derecho */}
         <div className="lg:col-span-4 bg-[#0A0A0A] border-l border-[#181818] pl-0 lg:pl-8 flex flex-col items-center space-y-5">
           <div className="w-full bg-[#111111] border border-[#1E1E1E] rounded-2xl p-5">
             <div className="text-xs font-semibold text-[#A3A3A3]">
               Progreso de Evaluaciones
             </div>
             <div className="text-3xl font-bold text-[#00FFEF] mt-1.5">
-              Nivel 4
+              Nivel {Math.max(1, Math.floor(xp / 600) + 1)}
             </div>
           </div>
 
@@ -200,7 +209,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
               Resultados del Quiz
             </h1>
             <p className="text-sm text-[#A3A3A3] mt-1">
-              Modulo: Ciberseguridad - Tabla de posiciones
+              Modulo: {selectedModuleId} — {correctCount}/{QUIZ_QUESTIONS.length} aciertos
             </p>
           </div>
 
@@ -245,9 +254,13 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
 
         <div className="lg:col-span-4 bg-[#0A0A0A] border-l border-[#181818] pl-0 lg:pl-8 flex flex-col items-center space-y-4">
           <div className="w-full bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 text-center space-y-2">
-            <div className="text-sm font-bold text-white">Auditoria superada!</div>
-            <div className="text-3xl font-bold text-[#00FFEF]">+ 450 XP</div>
-            <div className="text-xs text-[#A3A3A3] pt-1">Nivel 4 alcanzado</div>
+            <div className="text-sm font-bold text-white">Evaluación registrada</div>
+            <div className="text-3xl font-bold text-[#00FFEF]">
+              {sessionXp >= 0 ? `+ ${sessionXp}` : sessionXp} XP
+            </div>
+            <div className="text-xs text-[#A3A3A3] pt-1">
+              Nivel {Math.max(1, Math.floor(xp / 600) + 1)} alcanzado
+            </div>
           </div>
 
           <button
@@ -275,7 +288,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
       <div className="lg:col-span-8 space-y-6">
         <div className="flex items-center gap-4">
           <span className="text-xs font-bold text-white whitespace-nowrap">
-            Quiz en progreso
+            Quiz en progreso ({questionIdx + 1}/{QUIZ_QUESTIONS.length})
           </span>
           <div className="flex-1 max-w-md h-2 rounded-full bg-[#242424] overflow-hidden">
             <div
@@ -296,7 +309,6 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
           </h1>
         </div>
 
-        {/* Grid 2x2 de opciones */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 max-w-2xl">
           {currentQuestion.options.map((opt) => {
             const isChosen = selectedOptionId === opt.id;
@@ -337,7 +349,6 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
         </div>
       </div>
 
-      {/* Columna derecha: Temporizador o retroalimentación + Lexis + Siguiente pregunta */}
       <div className="lg:col-span-4 bg-[#0A0A0A] border-l border-[#181818] pl-0 lg:pl-8 flex flex-col items-center justify-between space-y-6">
         {isWrong ? (
           <div className="w-full bg-[#220911] border border-[#FF3366]/60 rounded-2xl p-5">

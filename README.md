@@ -41,8 +41,8 @@ El frontend consume el backend por HTTP. Configura la URL en `.env.local`:
 
 ```bash
 copy .env.example .env.local
-# NEXT_PUBLIC_API_URL=http://localhost:4000/api   (backend local)
-# NEXT_PUBLIC_API_URL=https://<backend>.vercel.app/api   (producción)
+# NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1   (backend local)
+# NEXT_PUBLIC_API_URL=https://<backend>.vercel.app/api/v1   (producción)
 ```
 
 - `src/lib/api.ts`: cliente de la API. Guarda la sesión, manda `Authorization: Bearer …` y renueva el token solo cuando vence.

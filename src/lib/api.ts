@@ -3,7 +3,7 @@
  * Respuestas: { data } en éxito y { error: { code, message, details } } en error.
  */
 
-export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api').replace(/\/$/, '');
+export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1').replace(/\/$/, '');
 
 const STORAGE_KEY = 'lexcode.session';
 

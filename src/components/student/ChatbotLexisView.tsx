@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Send, ThumbsUp, ThumbsDown } from 'lucide-react';
+import { Send, ThumbsUp, ThumbsDown, Trash2 } from 'lucide-react';
 import { api, errorMessage } from '@/lib/api';
 import type { LexisReply } from '@/lib/types';
 
@@ -24,6 +24,14 @@ interface ChatbotLexisViewProps {
   onConsumePrompt?: () => void;
   /** Abre el glosario buscando ese término. */
   onOpenGlossary: (term: string) => void;
+}
+
+interface HistoryItem {
+  id: number;
+  user_text: string;
+  was_helpful: boolean | null;
+  created_at: string;
+  answer: { body: string; expression: string } | null;
 }
 
 interface Suggestion {
@@ -63,6 +71,44 @@ export const ChatbotLexisView: React.FC<ChatbotLexisViewProps> = ({
   const endRef = useRef<HTMLDivElement>(null);
   // Evita enviar dos veces la misma pregunta inicial (React monta dos veces en desarrollo).
   const sentPromptRef = useRef<string | null>(null);
+
+  const [confirmClear, setConfirmClear] = useState(false);
+
+  // Conversaciones anteriores (las más recientes), debajo del saludo.
+  useEffect(() => {
+    api<{ items: HistoryItem[] }>('/lexis/history?pageSize=20')
+      .then(({ items }) => {
+        if (!items.length) return;
+        setMessages((prev) => {
+          const existing = new Set(prev.map((m) => m.id));
+          const past: ChatMessage[] = [];
+          [...items].reverse().forEach((h) => {
+            if (existing.has(`b-${h.id}`)) return;
+            past.push({ id: `hu-${h.id}`, sender: 'user', text: h.user_text });
+            past.push({
+              id: `b-${h.id}`,
+              sender: 'bot',
+              text: h.answer?.body ?? 'Todavía no tenía una respuesta para esto.',
+              messageId: h.id,
+              feedback: h.was_helpful ?? undefined,
+            });
+          });
+          return [prev[0], ...past, ...prev.slice(1)];
+        });
+      })
+      .catch(() => undefined);
+  }, []);
+
+  const clearHistory = async () => {
+    try {
+      await api('/lexis/history', { method: 'DELETE' });
+      setMessages((prev) => [prev[0]]);
+    } catch (err) {
+      setMessages((prev) => [...prev, { id: `e-${Date.now()}`, sender: 'bot', text: errorMessage(err), isError: true }]);
+    } finally {
+      setConfirmClear(false);
+    }
+  };
 
   useEffect(() => {
     api<Suggestion[]>('/lexis/suggestions')
@@ -137,13 +183,42 @@ export const ChatbotLexisView: React.FC<ChatbotLexisViewProps> = ({
         {/* Cabecera del bot */}
         <div className="bg-[#121212] border-b border-[#1E1E1E] px-6 py-4 flex items-center gap-3.5">
           <BotAvatar />
-          <div>
+          <div className="flex-1">
             <div className="text-sm font-bold text-white">Lexis · Asistente legal</div>
             <div className="text-xs text-[#00FFEF] flex items-center gap-1.5 mt-0.5">
               <span className="w-2 h-2 rounded-full bg-[#00FFEF]" />
               <span>En línea - Listo para ayudarte</span>
             </div>
           </div>
+          {messages.length > 1 &&
+            (confirmClear ? (
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-[#A3A3A3]">¿Borrar la conversación?</span>
+                <button
+                  type="button"
+                  onClick={() => setConfirmClear(false)}
+                  className="px-3 py-1.5 rounded-lg text-[#A3A3A3] hover:text-white cursor-pointer"
+                >
+                  No
+                </button>
+                <button
+                  type="button"
+                  onClick={() => void clearHistory()}
+                  className="px-3 py-1.5 rounded-lg bg-[#FF3366] text-black font-bold cursor-pointer"
+                >
+                  Sí, borrar
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setConfirmClear(true)}
+                className="flex items-center gap-1.5 text-xs text-[#757575] hover:text-[#FF3366] cursor-pointer"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                Borrar historial
+              </button>
+            ))}
         </div>
 
         {/* Mensajes */}

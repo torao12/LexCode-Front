@@ -47,7 +47,8 @@ copy .env.example .env.local
 
 - `src/lib/api.ts`: cliente de la API. Guarda la sesión, manda `Authorization: Bearer …` y renueva el token solo cuando vence.
 - `src/lib/session.tsx`: `SessionProvider` / `useSession()` con el perfil, `login`, `logout` y `reloadProfile`. El rol (alumno, docente, administrador) viene de la cuenta; ya no se cambia desde la interfaz.
-- Pantallas conectadas: registro e inicio de sesión (con edad mínima y tutor para menores), recuperar contraseña, Glosario, Asistente Lexis y Perfil (datos, foto, contraseña, consentimientos, descarga de datos y eliminar cuenta).
+- Pantallas conectadas: registro e inicio de sesión (con edad mínima y tutor para menores), recuperar contraseña, búsqueda general (barra superior), Glosario, Asistente Lexis (con historial) y Perfil (datos, foto, contraseña, consentimientos, descarga de datos, solicitudes ARCO y eliminar cuenta).
+- Panel de administración (`src/components/admin`, rol `admin`): usuarios (roles y suspensión), solicitudes ARCO, reportes, glosario, temas y respuestas de Lexis, documentos legales y bitácora.
 - Páginas de los enlaces de correo: `/auth/restablecer`, `/auth/confirmado` y `/autorizar-tutor`.
 - Dashboard, Dilemas, Actividades, Insignias y las vistas del docente siguen con `src/data/mockLexCode.ts` hasta que existan sus endpoints.
 

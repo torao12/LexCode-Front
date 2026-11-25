@@ -12,31 +12,106 @@ import {
   Users,
   Settings,
   LogOut,
+  ShieldCheck,
+  Flag,
+  FileText,
+  ScrollText,
 } from 'lucide-react';
-import { StudentRoute, TeacherRoute, UserRole } from '@/types/lexcode';
+import { AdminRoute, StudentRoute, TeacherRoute, UserRole } from '@/types/lexcode';
 import { LexCodeLogo } from '@/components/brand/LexCodeLogo';
+
+interface NavItem<T extends string> {
+  id: T;
+  label: string;
+  icon: React.ReactNode;
+}
 
 interface SidebarProps {
   role: UserRole;
   studentRoute: StudentRoute;
   teacherRoute: TeacherRoute;
+  adminRoute: AdminRoute;
   onSelectStudentRoute: (route: StudentRoute) => void;
   onSelectTeacherRoute: (route: TeacherRoute) => void;
+  onSelectAdminRoute: (route: AdminRoute) => void;
   userName: string;
-  accountRole: 'student' | 'teacher' | 'admin';
   onLogout: () => void;
 }
 
-const ROLE_LABELS = { student: 'Alumno', teacher: 'Docente', admin: 'Administrador' } as const;
+const ROLE_LABELS: Record<UserRole, string> = { student: 'Alumno', teacher: 'Docente', admin: 'Administrador' };
+
+const studentNav: NavItem<StudentRoute>[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutGrid className="w-4 h-4" /> },
+  { id: 'dilemas', label: 'Dilemas', icon: <GitBranch className="w-4 h-4" /> },
+  { id: 'actividades', label: 'Actividades', icon: <ClipboardCheck className="w-4 h-4" /> },
+  { id: 'glosario', label: 'Glosario', icon: <BookOpen className="w-4 h-4" /> },
+  { id: 'insignias', label: 'Insignias', icon: <Award className="w-4 h-4" /> },
+  { id: 'chatbot', label: 'Chatbot', icon: <Bot className="w-4 h-4" /> },
+  { id: 'perfil', label: 'Perfil', icon: <User className="w-4 h-4" /> },
+];
+
+const teacherNav: NavItem<TeacherRoute>[] = [
+  { id: 'dashboard', label: 'Dashboard', icon: <LayoutGrid className="w-4 h-4" /> },
+  { id: 'alumnos', label: 'Alumnos', icon: <Users className="w-4 h-4" /> },
+  { id: 'modulos', label: 'Módulos', icon: <ClipboardCheck className="w-4 h-4" /> },
+  { id: 'configuracion', label: 'Configuración', icon: <Settings className="w-4 h-4" /> },
+];
+
+const adminNav: NavItem<AdminRoute>[] = [
+  { id: 'usuarios', label: 'Usuarios', icon: <Users className="w-4 h-4" /> },
+  { id: 'arco', label: 'Solicitudes ARCO', icon: <ShieldCheck className="w-4 h-4" /> },
+  { id: 'reportes', label: 'Reportes', icon: <Flag className="w-4 h-4" /> },
+  { id: 'glosario', label: 'Glosario', icon: <BookOpen className="w-4 h-4" /> },
+  { id: 'lexis', label: 'Lexis', icon: <Bot className="w-4 h-4" /> },
+  { id: 'documentos', label: 'Documentos legales', icon: <FileText className="w-4 h-4" /> },
+  { id: 'bitacora', label: 'Bitácora', icon: <ScrollText className="w-4 h-4" /> },
+  { id: 'perfil', label: 'Mi perfil', icon: <User className="w-4 h-4" /> },
+];
+
+function NavList<T extends string>({
+  items,
+  active,
+  onSelect,
+}: {
+  items: NavItem<T>[];
+  active: T;
+  onSelect: (id: T) => void;
+}) {
+  return (
+    <>
+      {items.map((item) => {
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            onClick={() => onSelect(item.id)}
+            aria-current={isActive ? 'page' : undefined}
+            className={`w-full flex items-center gap-3.5 px-6 py-3 text-sm font-medium transition-colors relative cursor-pointer ${
+              isActive ? 'bg-[#002A28] text-white' : 'text-[#A3A3A3] hover:text-white hover:bg-[#0B0B0B]'
+            }`}
+          >
+            {isActive && (
+              <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-[#00FFEF]" aria-hidden="true" />
+            )}
+            <span className={isActive ? 'text-[#00FFEF]' : 'text-[#A3A3A3]'}>{item.icon}</span>
+            <span>{item.label}</span>
+          </button>
+        );
+      })}
+    </>
+  );
+}
 
 export const Sidebar: React.FC<SidebarProps> = ({
   role,
   studentRoute,
   teacherRoute,
+  adminRoute,
   onSelectStudentRoute,
   onSelectTeacherRoute,
+  onSelectAdminRoute,
   userName,
-  accountRole,
   onLogout,
 }) => {
   const initials =
@@ -46,22 +121,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       .slice(0, 2)
       .map((part) => part[0]?.toUpperCase())
       .join('') || 'LX';
-  const studentNav: { id: StudentRoute; label: string; icon: React.ReactNode }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutGrid className="w-4 h-4" /> },
-    { id: 'dilemas', label: 'Dilemas', icon: <GitBranch className="w-4 h-4" /> },
-    { id: 'actividades', label: 'Actividades', icon: <ClipboardCheck className="w-4 h-4" /> },
-    { id: 'glosario', label: 'Glosario', icon: <BookOpen className="w-4 h-4" /> },
-    { id: 'insignias', label: 'Insignias', icon: <Award className="w-4 h-4" /> },
-    { id: 'chatbot', label: 'Chatbot', icon: <Bot className="w-4 h-4" /> },
-    { id: 'perfil', label: 'Perfil', icon: <User className="w-4 h-4" /> },
-  ];
-
-  const teacherNav: { id: TeacherRoute; label: string; icon: React.ReactNode }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: <LayoutGrid className="w-4 h-4" /> },
-    { id: 'alumnos', label: 'Alumnos', icon: <Users className="w-4 h-4" /> },
-    { id: 'modulos', label: 'Módulos', icon: <ClipboardCheck className="w-4 h-4" /> },
-    { id: 'configuracion', label: 'Configuración', icon: <Settings className="w-4 h-4" /> },
-  ];
 
   return (
     <aside className="w-[228px] shrink-0 bg-[#000000] border-r border-[#161616] flex flex-col justify-between min-h-screen py-6">
@@ -71,59 +130,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
         </div>
 
         <nav className="space-y-1.5" aria-label="Navegación principal">
-          {role === 'student'
-            ? studentNav.map((item) => {
-                const isActive = studentRoute === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => onSelectStudentRoute(item.id)}
-                    className={`w-full flex items-center gap-3.5 px-6 py-3 text-sm font-medium transition-colors relative cursor-pointer ${
-                      isActive
-                        ? 'bg-[#002A28] text-white'
-                        : 'text-[#A3A3A3] hover:text-white hover:bg-[#0B0B0B]'
-                    }`}
-                  >
-                    {isActive && (
-                      <span
-                        className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-[#00FFEF]"
-                        aria-hidden="true"
-                      />
-                    )}
-                    <span className={isActive ? 'text-[#00FFEF]' : 'text-[#A3A3A3]'}>
-                      {item.icon}
-                    </span>
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })
-            : teacherNav.map((item) => {
-                const isActive = teacherRoute === item.id;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => onSelectTeacherRoute(item.id)}
-                    className={`w-full flex items-center gap-3.5 px-6 py-3 text-sm font-medium transition-colors relative cursor-pointer ${
-                      isActive
-                        ? 'bg-[#002A28] text-white'
-                        : 'text-[#A3A3A3] hover:text-white hover:bg-[#0B0B0B]'
-                    }`}
-                  >
-                    {isActive && (
-                      <span
-                        className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-[#00FFEF]"
-                        aria-hidden="true"
-                      />
-                    )}
-                    <span className={isActive ? 'text-[#00FFEF]' : 'text-[#A3A3A3]'}>
-                      {item.icon}
-                    </span>
-                    <span>{item.label}</span>
-                  </button>
-                );
-              })}
+          {role === 'student' && <NavList items={studentNav} active={studentRoute} onSelect={onSelectStudentRoute} />}
+          {role === 'teacher' && <NavList items={teacherNav} active={teacherRoute} onSelect={onSelectTeacherRoute} />}
+          {role === 'admin' && <NavList items={adminNav} active={adminRoute} onSelect={onSelectAdminRoute} />}
         </nav>
       </div>
 
@@ -135,7 +144,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           </div>
           <div className="min-w-0">
             <p className="text-xs font-semibold text-white truncate">{userName}</p>
-            <p className="text-[10px] uppercase tracking-wider text-[#757575]">{ROLE_LABELS[accountRole]}</p>
+            <p className="text-[10px] uppercase tracking-wider text-[#757575]">{ROLE_LABELS[role]}</p>
           </div>
         </div>
         <button

@@ -1,4 +1,4 @@
-export type UserRole = 'student' | 'teacher';
+export type UserRole = 'student' | 'teacher' | 'admin';
 
 export type LexisExpression =
   | 'happy'
@@ -15,6 +15,17 @@ export type StudentRoute =
   | 'glosario'
   | 'insignias'
   | 'chatbot'
+  | 'perfil'
+  | 'busqueda';
+
+export type AdminRoute =
+  | 'usuarios'
+  | 'arco'
+  | 'reportes'
+  | 'glosario'
+  | 'lexis'
+  | 'documentos'
+  | 'bitacora'
   | 'perfil';
 
 export type TeacherRoute =

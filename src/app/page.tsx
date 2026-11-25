@@ -77,6 +77,9 @@ export default function HomePage() {
 
   // XP local de los juegos simulados (se reemplaza cuando exista el backend de Persona B).
   const [xpDelta, setXpDelta] = useState<number>(0);
+  const [completedDilemaIds, setCompletedDilemaIds] = useState<string[]>([]);
+  const [completedActivities, setCompletedActivities] = useState<string[]>([]);
+  const [progressReady, setProgressReady] = useState<boolean>(false);
   const [streakDays] = useState<number>(5);
   const [searchQuery, setSearchQuery] = useState<string>('');
   // Búsqueda enviada desde la barra superior y término abierto en el glosario
@@ -90,6 +93,62 @@ export default function HomePage() {
   const [modules, setModules] = useState<TeacherModule[]>(
     INITIAL_TEACHER_MODULES
   );
+
+  React.useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem("lexcode_student_progress_v1");
+      if (raw) {
+        const data = JSON.parse(raw) as {
+          xpDelta?: number;
+          completedDilemaIds?: string[];
+          completedActivities?: string[];
+          studentRoute?: StudentRoute;
+        };
+        if (typeof data.xpDelta === "number") setXpDelta(data.xpDelta);
+        if (Array.isArray(data.completedDilemaIds)) {
+          setCompletedDilemaIds(data.completedDilemaIds);
+        }
+        if (Array.isArray(data.completedActivities)) {
+          setCompletedActivities(data.completedActivities);
+        }
+        if (data.studentRoute) {
+          setStudentRoute(data.studentRoute);
+        }
+      }
+    } catch {
+      // Ignora error de lectura de storage
+    } finally {
+      setProgressReady(true);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (!progressReady) return;
+    try {
+      window.localStorage.setItem(
+        "lexcode_student_progress_v1",
+        JSON.stringify({
+          xpDelta,
+          completedDilemaIds,
+          completedActivities,
+          studentRoute,
+        })
+      );
+    } catch {
+      // Ignora error de escritura en storage
+    }
+  }, [progressReady, xpDelta, completedDilemaIds, completedActivities, studentRoute]);
+
+  const handleCompleteDilema = (dilemaId: string, isCorrect: boolean) => {
+    if (!isCorrect) return;
+    setCompletedDilemaIds((prev) => (prev.includes(dilemaId) ? prev : [...prev, dilemaId]));
+  };
+
+  const handleCompleteActivity = (activityId: string) => {
+    setCompletedActivities((prev) =>
+      prev.includes(activityId) ? prev : [...prev, activityId]
+    );
+  };
 
   const handleUpdateXp = (delta: number) => {
     setXpDelta((prev) => prev + delta);
@@ -223,10 +282,20 @@ export default function HomePage() {
                 />
               )}
               {studentRoute === 'dilemas' && (
-                <DilemasView xp={xp} onUpdateXp={handleUpdateXp} />
+                <DilemasView
+                  xp={xp}
+                  completedDilemaIds={completedDilemaIds}
+                  onUpdateXp={handleUpdateXp}
+                  onCompleteDilema={handleCompleteDilema}
+                />
               )}
               {studentRoute === 'actividades' && (
-                <ActividadesView xp={xp} onUpdateXp={handleUpdateXp} />
+                <ActividadesView
+                  xp={xp}
+                  completedActivities={completedActivities}
+                  onUpdateXp={handleUpdateXp}
+                  onCompleteActivity={handleCompleteActivity}
+                />
               )}
               {studentRoute === 'glosario' && (
                 <GlosarioView

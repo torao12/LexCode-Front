@@ -72,7 +72,7 @@ export const ActividadesView: React.FC<ActividadesViewProps> = ({
         <button
           type="button"
           onClick={() => setMode('memorama')}
-          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-6 text-left flex flex-col justify-between min-h-[210px] transition cursor-pointer"
+          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[145px] sm:min-h-[190px] transition cursor-pointer"
         >
           <div>
             <div className="flex items-center justify-between gap-2">
@@ -100,7 +100,7 @@ export const ActividadesView: React.FC<ActividadesViewProps> = ({
         <button
           type="button"
           onClick={() => setMode('cloze')}
-          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-6 text-left flex flex-col justify-between min-h-[210px] transition cursor-pointer"
+          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[145px] sm:min-h-[190px] transition cursor-pointer"
         >
           <div>
             <div className="flex items-center justify-between gap-2">
@@ -128,7 +128,7 @@ export const ActividadesView: React.FC<ActividadesViewProps> = ({
         <button
           type="button"
           onClick={() => setMode('quizzes')}
-          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-6 text-left flex flex-col justify-between min-h-[210px] transition cursor-pointer"
+          className="bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[145px] sm:min-h-[190px] transition cursor-pointer"
         >
           <div>
             <div className="flex items-center justify-between gap-2">

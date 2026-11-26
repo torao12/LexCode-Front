@@ -52,7 +52,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
   return (
     <div className="grid grid-cols-1 xl:grid-cols-12 gap-7 max-w-7xl items-start">
       <div className="xl:col-span-8 space-y-6">
-        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-[#0A1E1D] border-2 border-[#00FFEF] flex items-center justify-center shrink-0">
               <LexisMascot expression="happy" className="w-12 h-14" />
@@ -89,7 +89,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
           </div>
         </div>
 
-        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-5">
+        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 space-y-5">
           <div className="flex items-start justify-between gap-4">
             <div>
               <span className="text-[11px] font-bold tracking-[0.08em] text-[#00FFEF] uppercase">
@@ -137,7 +137,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 flex flex-col justify-between space-y-5">
+          <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 flex flex-col justify-between space-y-5">
             <div className="space-y-2">
               <span className="text-[11px] font-bold tracking-[0.08em] text-[#00FFEF] uppercase">
                 PRÁCTICA RÁPIDA
@@ -159,7 +159,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
             </button>
           </div>
 
-          <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 flex flex-col justify-between space-y-5">
+          <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 flex flex-col justify-between space-y-5">
             <div className="space-y-2">
               <span className="text-[11px] font-bold tracking-[0.08em] text-[#00FFEF] uppercase">
                 CONSULTA NORMATIVA
@@ -193,7 +193,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
       </div>
 
       <div className="xl:col-span-4 space-y-6">
-        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-4">
+        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-base font-bold text-white">Insignias Recientes</h2>
             <button
@@ -222,7 +222,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
           </p>
         </div>
 
-        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-4">
+        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-base font-bold text-white">Ruta de Dilemas</h2>
             <span className="text-xs font-bold text-[#00FFEF]">

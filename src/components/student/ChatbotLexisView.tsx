@@ -179,7 +179,7 @@ export const ChatbotLexisView: React.FC<ChatbotLexisViewProps> = ({
     <div className="max-w-5xl space-y-4">
       <h1 className="text-lg font-bold text-white">Asistente Virtual</h1>
 
-      <div className="bg-[#0A0A0A] border border-[#1E1E1E] rounded-2xl overflow-hidden flex flex-col min-h-[540px] justify-between">
+      <div className="bg-[#0A0A0A] border border-[#1E1E1E] rounded-2xl overflow-hidden flex flex-col min-h-[400px] sm:min-h-[540px] justify-between">
         {/* Cabecera del bot */}
         <div className="bg-[#121212] border-b border-[#1E1E1E] px-6 py-4 flex items-center gap-3.5">
           <BotAvatar />

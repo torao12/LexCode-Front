@@ -99,7 +99,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
                   key={mod.id}
                   type="button"
                   onClick={() => setSelectedId(mod.id)}
-                  className={`rounded-2xl p-7 text-center flex flex-col items-center justify-center min-h-[240px] transition cursor-pointer ${
+                  className={`rounded-2xl p-4 sm:p-7 text-center flex flex-col items-center justify-center min-h-[165px] sm:min-h-[220px] transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#002A28]/50 border-2 border-[#00FFEF]'
                       : 'bg-[#111111] border border-[#222222] hover:border-[#444444]'

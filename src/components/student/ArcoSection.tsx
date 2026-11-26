@@ -72,7 +72,7 @@ export const ArcoSection: React.FC = () => {
       )}
 
       {open && (
-        <form onSubmit={submit} className="bg-[#111111] border border-[#00FFEF] rounded-2xl p-6 space-y-4">
+        <form onSubmit={submit} className="bg-[#111111] border border-[#00FFEF] rounded-2xl p-4 sm:p-6 space-y-4">
           <div>
             <label htmlFor="arco-right" className="block text-xs font-semibold text-[#A3A3A3] mb-2">
               ¿Qué quieres hacer?

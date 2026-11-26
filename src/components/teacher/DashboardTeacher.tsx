@@ -19,7 +19,7 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <div
           onClick={() => onNavigateTeacher('alumnos')}
-          className="bg-[#111111] border border-[#1E1E1E] hover:border-[#333333] rounded-2xl p-6 cursor-pointer transition"
+          className="bg-[#111111] border border-[#1E1E1E] hover:border-[#333333] rounded-2xl p-4 sm:p-6 cursor-pointer transition"
         >
           <div className="text-xs text-[#A3A3A3]">Estudiantes Registrados</div>
           <div className="text-3xl font-bold text-white mt-3">{studentsCount}</div>
@@ -28,7 +28,7 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
 
         <div
           onClick={() => onNavigateTeacher('modulos')}
-          className="bg-[#111111] border border-[#1E1E1E] hover:border-[#333333] rounded-2xl p-6 cursor-pointer transition"
+          className="bg-[#111111] border border-[#1E1E1E] hover:border-[#333333] rounded-2xl p-4 sm:p-6 cursor-pointer transition"
         >
           <div className="text-xs text-[#A3A3A3]">Módulos Publicados</div>
           <div className="text-3xl font-bold text-white mt-3">{modulesCount}</div>
@@ -76,7 +76,7 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
           </div>
         </div>
 
-        <div className="lg:col-span-4 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-5">
+        <div className="lg:col-span-4 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6 space-y-5">
           <h2 className="text-base font-bold text-white">Últimas Entregas</h2>
 
           <div className="space-y-4 divide-y divide-[#1D1D1D]">

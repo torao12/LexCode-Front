@@ -66,7 +66,7 @@ const TermForm: React.FC<{
   };
 
   return (
-    <Card className="p-6">
+    <Card className="p-4 sm:p-6">
       <form onSubmit={submit} className="space-y-4">
         <h2 className="text-lg font-bold text-white">{initial ? 'Editar término' : 'Nuevo término'}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

@@ -116,7 +116,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
                   key={mod.id}
                   type="button"
                   onClick={() => setSelectedModuleId(mod.id)}
-                  className={`rounded-2xl p-6 text-left flex flex-col justify-between min-h-[260px] transition cursor-pointer ${
+                  className={`rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[170px] sm:min-h-[230px] transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#002A28]/45 border-2 border-[#00FFEF]'
                       : 'bg-[#111111] border border-[#222222] hover:border-[#3A3A3A]'

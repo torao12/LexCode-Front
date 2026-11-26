@@ -114,6 +114,15 @@ export default function HomePage() {
         if (data.studentRoute) {
           setStudentRoute(data.studentRoute);
         }
+        if ((data as { teacherRoute?: TeacherRoute }).teacherRoute) {
+          setTeacherRoute((data as { teacherRoute?: TeacherRoute }).teacherRoute!);
+        }
+        if (Array.isArray((data as { students?: TeacherStudent[] }).students)) {
+          setStudents((data as { students?: TeacherStudent[] }).students!);
+        }
+        if (Array.isArray((data as { modules?: TeacherModule[] }).modules)) {
+          setModules((data as { modules?: TeacherModule[] }).modules!);
+        }
       }
     } catch {
       // Ignora error de lectura de storage
@@ -132,12 +141,15 @@ export default function HomePage() {
           completedDilemaIds,
           completedActivities,
           studentRoute,
+          teacherRoute,
+          students,
+          modules,
         })
       );
     } catch {
       // Ignora error de escritura en storage
     }
-  }, [progressReady, xpDelta, completedDilemaIds, completedActivities, studentRoute]);
+  }, [progressReady, xpDelta, completedDilemaIds, completedActivities, studentRoute, teacherRoute, students, modules]);
 
   const handleCompleteDilema = (dilemaId: string, isCorrect: boolean) => {
     if (!isCorrect) return;
@@ -377,7 +389,7 @@ export default function HomePage() {
                   }
                 />
               )}
-              {teacherRoute === 'configuracion' && <ConfiguracionDocenteView />}
+              {teacherRoute === 'configuracion' && <ConfiguracionDocenteView onLogout={handleLogout} />}
             </>
           )}
         </main>

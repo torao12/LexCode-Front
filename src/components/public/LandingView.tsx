@@ -22,32 +22,32 @@ export const LandingView: React.FC<LandingViewProps> = ({
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 top-0 w-[460px] h-[440px] lexcode-dot-pattern opacity-90"
+        className="pointer-events-none absolute right-0 top-0 w-[220px] sm:w-[360px] lg:w-[460px] h-[240px] sm:h-[360px] lg:h-[440px] lexcode-dot-pattern opacity-75 sm:opacity-90"
         aria-hidden="true"
       />
 
-      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 pb-4 flex items-center justify-between">
+      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-7 pb-4 flex items-center justify-between gap-2 sm:gap-4">
         <LexCodeLogo size="md" />
 
-        <nav className="flex items-center gap-6 text-sm" aria-label="Navegación pública">
+        <nav className="flex items-center gap-2.5 sm:gap-6 text-xs sm:text-sm shrink-0" aria-label="Navegación pública">
           <button
             type="button"
             onClick={onViewModules}
-            className="text-[#A3A3A3] hover:text-white transition-colors cursor-pointer"
+            className="text-[#A3A3A3] hover:text-white transition-colors whitespace-nowrap cursor-pointer"
           >
             Acerca de
           </button>
           <button
             type="button"
             onClick={onLogin}
-            className="text-white font-semibold hover:text-[#00FFEF] transition-colors cursor-pointer"
+            className="text-white font-semibold hover:text-[#00FFEF] transition-colors whitespace-nowrap cursor-pointer"
           >
             Iniciar sesión
           </button>
           <button
             type="button"
             onClick={onStartAdventure}
-            className="bg-[#00FFEF] text-black font-semibold text-xs px-5 py-2.5 rounded-full hover:brightness-105 transition cursor-pointer"
+            className="bg-[#00FFEF] text-black font-semibold text-[11px] sm:text-xs px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full hover:brightness-105 transition whitespace-nowrap cursor-pointer"
           >
             Regístrate gratis
           </button>

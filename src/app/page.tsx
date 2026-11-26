@@ -278,6 +278,8 @@ export default function HomePage() {
                   userName={firstName}
                   xp={xp}
                   streakDays={streakDays}
+                  completedDilemaIds={completedDilemaIds}
+                  completedActivities={completedActivities}
                   onNavigate={(r) => setStudentRoute(r)}
                 />
               )}
@@ -303,7 +305,13 @@ export default function HomePage() {
                   onAskLexis={handleAskLexisFromGlossary}
                 />
               )}
-              {studentRoute === 'insignias' && <InsigniasView />}
+              {studentRoute === 'insignias' && (
+                <InsigniasView
+                  xp={xp}
+                  completedDilemaIds={completedDilemaIds}
+                  completedActivities={completedActivities}
+                />
+              )}
               {studentRoute === 'chatbot' && (
                 <ChatbotLexisView
                   userName={profile.full_name}
@@ -313,7 +321,7 @@ export default function HomePage() {
                 />
               )}
               {studentRoute === 'perfil' && (
-                <PerfilView onLogout={handleLogout} />
+                <PerfilView xp={xp} onLogout={handleLogout} />
               )}
               {studentRoute === 'busqueda' && (
                 <BusquedaView

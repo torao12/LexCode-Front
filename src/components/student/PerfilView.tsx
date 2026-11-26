@@ -8,6 +8,7 @@ import { LEVEL_TITLES, type ConsentState, type FullProfile } from '@/lib/types';
 import { ArcoSection } from './ArcoSection';
 
 interface PerfilViewProps {
+  xp?: number;
   onLogout: () => void;
 }
 
@@ -50,7 +51,7 @@ const Toggle: React.FC<{ checked: boolean; disabled?: boolean; onChange: (v: boo
   </button>
 );
 
-export const PerfilView: React.FC<PerfilViewProps> = ({ onLogout }) => {
+export const PerfilView: React.FC<PerfilViewProps> = ({ xp, onLogout }) => {
   const { patchProfile, reloadProfile } = useSession();
   const [profile, setProfile] = useState<FullProfile | null>(null);
   const [loadError, setLoadError] = useState('');
@@ -284,7 +285,7 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ onLogout }) => {
               <div className="text-lg font-bold text-white">{profile.full_name}</div>
               <div className="text-xs text-[#A3A3A3] mt-0.5">
                 {profile.major ? `${profile.major} - ` : ''}
-                {levelText} · {profile.xp_total.toLocaleString('es-MX')} XP
+                {levelText} · {Math.max(xp ?? 0, profile.xp_total).toLocaleString('es-MX')} XP
               </div>
             </div>
           </div>

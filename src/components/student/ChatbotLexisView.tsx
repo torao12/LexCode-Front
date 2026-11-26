@@ -222,7 +222,7 @@ export const ChatbotLexisView: React.FC<ChatbotLexisViewProps> = ({
         </div>
 
         {/* Mensajes */}
-        <div className="flex-1 p-6 space-y-5 overflow-y-auto max-h-[560px]" aria-live="polite">
+        <div className="flex-1 p-3.5 sm:p-6 space-y-4 sm:space-y-5 overflow-y-auto max-h-[55dvh] sm:max-h-[560px]" aria-live="polite">
           {messages.map((msg) => {
             if (msg.sender === 'user') {
               return (

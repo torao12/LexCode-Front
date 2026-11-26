@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="dark">
-      <body className={`${inter.className} bg-[#000000] text-white antialiased`}>
+      <body className={`${inter.className} bg-[#000000] text-white antialiased overflow-x-hidden`}>
         <SessionProvider>{children}</SessionProvider>
       </body>
     </html>

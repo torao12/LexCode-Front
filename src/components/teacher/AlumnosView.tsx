@@ -350,7 +350,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
         >
           <form
             onSubmit={handleSaveStudent}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 shadow-2xl"
+            className="w-full max-w-2xl max-h-[90dvh] overflow-y-auto bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4">
               <div>

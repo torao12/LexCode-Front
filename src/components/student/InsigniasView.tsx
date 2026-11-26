@@ -89,7 +89,7 @@ export const InsigniasView: React.FC<InsigniasViewProps> = ({
       <section className="relative z-10 space-y-6">
         <h2 className="text-xl font-semibold text-white">Obtenidas</h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 justify-items-center max-w-4xl">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 justify-items-center max-w-4xl">
           {earnedBadges.map((badge, idx) => {
             const visual = getBadgeVisualConfig(badge, idx);
             return (
@@ -108,7 +108,7 @@ export const InsigniasView: React.FC<InsigniasViewProps> = ({
       <section className="relative z-10 space-y-6 pt-2">
         <h2 className="text-xl font-semibold text-white">Bloqueadas</h2>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 justify-items-center max-w-4xl">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 justify-items-center max-w-4xl">
           {lockedBadges.map((badge, idx) => {
             const visual = getBadgeVisualConfig(badge, earnedBadges.length + idx);
             return (

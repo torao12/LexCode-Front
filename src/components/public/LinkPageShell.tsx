@@ -13,13 +13,13 @@ export const LinkPageShell: React.FC<{
   children: React.ReactNode;
 }> = ({ title, expression = 'happy', children }) => (
   <div className="min-h-screen bg-[#000000] text-white flex flex-col">
-    <header className="max-w-6xl w-full mx-auto px-8 pt-7">
+    <header className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7">
       <Link href="/" aria-label="Ir al inicio">
         <LexCodeLogo size="md" />
       </Link>
     </header>
     <main className="flex-1 flex items-center justify-center px-6 py-10">
-      <div className="max-w-md w-full bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-8 space-y-5">
+      <div className="max-w-md w-full bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-5 sm:p-8 space-y-5">
         <div className="flex justify-center">
           <LexisMascot expression={expression} className="w-28 h-36" />
         </div>

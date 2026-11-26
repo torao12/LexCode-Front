@@ -26,7 +26,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
         aria-hidden="true"
       />
 
-      <header className="relative z-10 max-w-6xl w-full mx-auto px-8 pt-7 pb-4 flex items-center justify-between">
+      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 pb-4 flex items-center justify-between">
         <LexCodeLogo size="md" />
 
         <nav className="flex items-center gap-6 text-sm" aria-label="Navegación pública">
@@ -54,7 +54,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
         </nav>
       </header>
 
-      <main className="relative z-10 max-w-6xl w-full mx-auto px-8 py-10 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <main className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         <div className="lg:col-span-6 space-y-6">
           <p className="text-[11px] font-bold tracking-[0.14em] text-[#00FFEF] uppercase">
             APRENDIZAJE GAMIFICADO PARA INGENIEROS
@@ -88,7 +88,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
             </button>
           </div>
 
-          <div className="flex items-center gap-8 pt-6">
+          <div className="flex flex-wrap items-center gap-5 sm:gap-8 pt-6">
             <div>
               <div className="text-2xl font-bold text-white">+20</div>
               <div className="text-xs text-[#A3A3A3] leading-snug">

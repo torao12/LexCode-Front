@@ -33,11 +33,11 @@ export const AccountStatusView: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#000000] text-white flex flex-col">
-      <header className="max-w-6xl w-full mx-auto px-8 pt-7">
+      <header className="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7">
         <LexCodeLogo size="md" />
       </header>
       <main className="flex-1 flex items-center justify-center px-6">
-        <div className="max-w-lg w-full bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-8 text-center space-y-5">
+        <div className="max-w-lg w-full bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-5 sm:p-8 text-center space-y-5">
           <div className="flex justify-center">
             <LexisMascot expression={pending ? 'wave' : 'sad'} className="w-32 h-40" />
           </div>

@@ -117,7 +117,7 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl items-start">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 max-w-6xl items-start">
       <div className="lg:col-span-8 space-y-5">
         <div className="flex items-center justify-between">
           <div className="text-xs text-[#A3A3A3]">Actividades / Memorama</div>

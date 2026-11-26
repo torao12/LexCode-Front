@@ -64,7 +64,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
 
   if (isSummary) {
     return (
-      <div className="max-w-3xl bg-[#111111] border border-[#00FFEF] rounded-2xl p-8 space-y-6">
+      <div className="max-w-3xl bg-[#111111] border border-[#00FFEF] rounded-2xl p-4 sm:p-8 space-y-5 sm:space-y-6">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#00FFEF]">
             Actividad completada

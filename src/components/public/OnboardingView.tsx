@@ -47,7 +47,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
         aria-hidden="true"
       />
 
-      <header className="relative z-10 max-w-6xl w-full mx-auto px-8 pt-7">
+      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7">
         <LexCodeLogo size="md" />
       </header>
 
@@ -69,13 +69,13 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
           <button
             type="button"
             onClick={() => setStep('select')}
-            className="bg-[#00FFEF] text-black font-bold text-sm px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
+            className="bg-[#00FFEF] text-black font-bold text-sm px-5 sm:px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
           >
             Continuar
           </button>
         </main>
       ) : (
-        <main className="relative z-10 flex-1 max-w-5xl w-full mx-auto px-8 py-6 flex flex-col items-center justify-center">
+        <main className="relative z-10 flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6 flex flex-col items-center justify-center">
           <div className="w-full flex items-center justify-between mb-2">
             <div className="w-24 hidden sm:block" />
             <div className="text-center">
@@ -144,7 +144,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
           <button
             type="button"
             onClick={() => onFinishOnboarding(selectedId)}
-            className="mt-8 bg-[#00FFEF] text-black font-bold text-sm px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
+            className="mt-8 bg-[#00FFEF] text-black font-bold text-sm px-5 sm:px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
           >
             Confirmar mi selección
           </button>

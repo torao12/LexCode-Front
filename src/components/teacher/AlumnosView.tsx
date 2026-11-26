@@ -219,13 +219,13 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
 
         {visibleStudents.length === 0 ? (
           <div className="py-10 flex flex-col items-center">
-            <div className="w-full grid grid-cols-5 text-[11px] font-semibold uppercase tracking-wider text-[#666666] pb-3 border-b border-[#181818]">
+            <div className="w-full overflow-x-auto"><div className="min-w-[640px] grid grid-cols-5 text-[11px] font-semibold uppercase tracking-wider text-[#666666] pb-3 border-b border-[#181818]">
               <span>NOMBRE DEL ALUMNO</span>
               <span>MATRÍCULA</span>
               <span>MÓDULO ACTUAL</span>
               <span>PROMEDIO</span>
               <span>ESTATUS</span>
-            </div>
+            </div></div>
 
             <div className="mt-10 w-full max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-12 px-6 flex flex-col items-center text-center space-y-4">
               <UserPlus className="w-8 h-8 text-[#757575]" />
@@ -247,7 +247,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full min-w-[640px] text-left border-collapse">
                 <thead>
                   <tr className="border-b border-[#1B1B1B] text-[11px] font-semibold uppercase tracking-wider text-[#666666]">
                     <th className="py-3 pr-4">NOMBRE DEL ALUMNO</th>

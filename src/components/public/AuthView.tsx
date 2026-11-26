@@ -142,14 +142,14 @@ export const AuthView: React.FC<AuthViewProps> = ({
         aria-hidden="true"
       />
 
-      <header className="relative z-10 max-w-6xl w-full mx-auto px-8 pt-7 flex items-center justify-between">
+      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-5 sm:pt-7 flex items-center justify-between gap-3">
         <button type="button" onClick={onBackToLanding} className="cursor-pointer">
           <LexCodeLogo size="md" />
         </button>
 
       </header>
 
-      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-8 py-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <main className="relative z-10 flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
         {/* Columna izquierda con encabezado y mascota */}
         <div className="lg:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left">
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-white">
@@ -172,7 +172,7 @@ export const AuthView: React.FC<AuthViewProps> = ({
         <div className="lg:col-span-7 flex justify-center lg:justify-end">
           <form
             onSubmit={handleSubmit}
-            className="w-full max-w-lg bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-8 space-y-5"
+            className="w-full max-w-lg bg-[#0D0D0D] border border-[#00FFEF] rounded-2xl p-5 sm:p-8 space-y-5"
           >
             {mode === 'register' && (
               <div>

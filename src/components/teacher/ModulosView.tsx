@@ -183,13 +183,13 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
 
         {visibleModules.length === 0 ? (
           <div className="pt-2">
-            <div className="grid grid-cols-5 text-[11px] font-semibold uppercase tracking-wider text-[#666666] pb-3 border-b border-[#181818]">
+            <div className="w-full overflow-x-auto"><div className="min-w-[640px] grid grid-cols-5 text-[11px] font-semibold uppercase tracking-wider text-[#666666] pb-3 border-b border-[#181818]">
               <span>ORDEN</span>
               <span>NOMBRE DEL MÓDULO</span>
               <span>NORMATIVA / ESTÁNDAR</span>
               <span>ESTUDIANTES INSCRITOS</span>
               <span>ACCIONES</span>
-            </div>
+            </div></div>
 
             <div className="mt-10 mx-auto max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-12 px-6 flex flex-col items-center text-center space-y-4">
               <UserPlus className="w-8 h-8 text-[#757575]" />
@@ -213,7 +213,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         ) : (
           <>
             <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
+              <table className="w-full min-w-[640px] text-left border-collapse">
                 <thead>
                   <tr className="border-b border-[#1A1A1A] text-[11px] font-semibold uppercase tracking-wider text-[#666666]">
                     <th className="py-3 pr-4">ORDEN</th>

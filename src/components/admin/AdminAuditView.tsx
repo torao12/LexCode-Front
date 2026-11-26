@@ -113,7 +113,7 @@ export const AdminAuditView: React.FC = () => {
       ) : (
         <>
           <Card className="overflow-x-auto">
-            <table className="w-full text-sm">
+            <table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="text-left text-[11px] uppercase tracking-wider text-[#757575] border-b border-[#222222]">
                   <th className="px-5 py-3 font-semibold">Fecha</th>

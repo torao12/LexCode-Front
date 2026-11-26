@@ -43,7 +43,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute right-0 top-0 w-[440px] h-[420px] lexcode-dot-pattern opacity-90"
+        className="pointer-events-none absolute right-0 top-0 w-[220px] sm:w-[340px] lg:w-[440px] h-[240px] sm:h-[360px] lg:h-[420px] lexcode-dot-pattern opacity-75 sm:opacity-90"
         aria-hidden="true"
       />
 

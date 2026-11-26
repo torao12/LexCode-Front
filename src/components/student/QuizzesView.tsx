@@ -217,7 +217,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
             {dynamicLeaderboard.map((row) => (
               <div
                 key={row.rank}
-                className={`rounded-2xl px-6 py-4 flex items-center justify-between gap-4 ${
+                className={`rounded-2xl px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3 sm:gap-4 ${
                   row.isCurrentUser
                     ? 'bg-[#002A28]/55 border-2 border-[#00FFEF]'
                     : 'bg-[#111111] border border-[#222222]'

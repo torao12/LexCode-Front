@@ -15,7 +15,7 @@ export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> =
 
   return (
     <div className="max-w-5xl space-y-6">
-      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-8 space-y-6">
+      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
         <div>
           <h1 className="text-2xl font-bold text-white">Configuración General</h1>
           <p className="text-xs text-[#757575] mt-1">

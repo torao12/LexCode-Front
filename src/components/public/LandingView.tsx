@@ -16,7 +16,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
   onViewModules,
 }) => {
   return (
-    <div className="min-h-screen bg-[#000000] text-white relative overflow-hidden flex flex-col justify-between">
+    <div className="min-h-screen bg-[#000000] text-white relative overflow-hidden flex flex-col justify-between overflow-x-hidden">
       <div
         className="pointer-events-none absolute left-0 bottom-0 w-[260px] h-[340px] lexcode-dot-pattern opacity-80"
         aria-hidden="true"
@@ -26,28 +26,28 @@ export const LandingView: React.FC<LandingViewProps> = ({
         aria-hidden="true"
       />
 
-      <header className="relative z-10 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-7 pb-4 flex items-center justify-between gap-2 sm:gap-4">
+      <header className="relative z-10 max-w-6xl w-full mx-auto px-3.5 sm:px-6 lg:px-8 pt-4 sm:pt-7 pb-3 sm:pb-4 flex items-center justify-between gap-2 sm:gap-4">
         <LexCodeLogo size="md" />
 
-        <nav className="flex items-center gap-2.5 sm:gap-6 text-xs sm:text-sm shrink-0" aria-label="Navegación pública">
+        <nav className="flex items-center gap-2 sm:gap-6 text-[11px] sm:text-sm shrink-0" aria-label="Navegación pública">
           <button
             type="button"
             onClick={onViewModules}
-            className="text-[#A3A3A3] hover:text-white transition-colors whitespace-nowrap cursor-pointer"
+            className="hidden sm:inline-block text-[#A3A3A3] hover:text-white transition-colors whitespace-nowrap cursor-pointer"
           >
             Acerca de
           </button>
           <button
             type="button"
             onClick={onLogin}
-            className="text-white font-semibold hover:text-[#00FFEF] transition-colors whitespace-nowrap cursor-pointer"
+            className="text-white font-semibold hover:text-[#00FFEF] transition-colors whitespace-nowrap px-1.5 py-1 cursor-pointer"
           >
             Iniciar sesión
           </button>
           <button
             type="button"
             onClick={onStartAdventure}
-            className="bg-[#00FFEF] text-black font-semibold text-[11px] sm:text-xs px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full hover:brightness-105 transition whitespace-nowrap cursor-pointer"
+            className="bg-[#00FFEF] text-black font-semibold text-[11px] sm:text-xs px-3 sm:px-5 py-1.5 sm:py-2.5 rounded-full hover:brightness-105 transition whitespace-nowrap shrink-0 cursor-pointer"
           >
             Regístrate gratis
           </button>

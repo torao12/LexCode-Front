@@ -179,7 +179,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
 
   return (
     <div className="max-w-6xl space-y-4">
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4">
         <div className="text-xs text-[#00FFEF] font-medium min-h-[16px]">
           {statusFeedback}
         </div>
@@ -291,7 +291,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
               </table>
             </div>
 
-            <div className="pt-3 flex items-center justify-between gap-4 text-xs text-[#757575]">
+            <div className="pt-3 flex flex-wrap items-center justify-between gap-2 sm:gap-4 text-xs text-[#757575]">
               <span>
                 Mostrando {visibleStudents.length} de {students.length} estudiantes
               </span>
@@ -350,7 +350,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
         >
           <form
             onSubmit={handleSaveStudent}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-6 shadow-2xl"
+            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6 shadow-2xl"
           >
             <div className="flex items-start justify-between gap-4">
               <div>

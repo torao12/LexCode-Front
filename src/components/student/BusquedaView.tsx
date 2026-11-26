@@ -108,7 +108,7 @@ export const BusquedaView: React.FC<BusquedaViewProps> = ({ query, onOpenGlossar
                     onClick={() => open(hit)}
                     className="w-full text-left bg-[#111111] border border-[#222222] hover:border-[#00FFEF] rounded-2xl px-6 py-4 transition cursor-pointer group"
                   >
-                    <div className="flex items-center justify-between gap-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
                       <div className="min-w-0">
                         <p className="text-sm font-bold text-white">{hit.title}</p>
                         {hit.snippet && <p className="text-xs text-[#A3A3A3] mt-1 line-clamp-2">{hit.snippet}</p>}

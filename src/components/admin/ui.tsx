@@ -129,7 +129,7 @@ export const Loading: React.FC = () => (
 );
 
 export const ErrorState: React.FC<{ message: string; onRetry?: () => void }> = ({ message, onRetry }) => (
-  <Card className="p-8 text-center space-y-3">
+  <Card className="p-5 sm:p-8 text-center space-y-3">
     <p role="alert" className="text-sm text-[#FF3366]">
       {message}
     </p>
@@ -166,7 +166,7 @@ export const Pagination: React.FC<{ page: number; pageSize: number; total: numbe
   const pages = Math.max(1, Math.ceil(total / pageSize));
   if (pages <= 1) return <p className="text-xs text-[#757575]">{total} en total</p>;
   return (
-    <div className="flex items-center justify-between gap-3 text-xs text-[#A3A3A3]">
+    <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-3 text-xs text-[#A3A3A3]">
       <span>
         {total} en total · página {page} de {pages}
       </span>

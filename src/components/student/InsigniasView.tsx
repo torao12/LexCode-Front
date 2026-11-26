@@ -38,7 +38,7 @@ export const InsigniasView: React.FC<InsigniasViewProps> = ({
   const computedBadges = useMemo(() => {
     const hasActivity = completedActivities.length > 0;
     const hasDilema = completedDilemaIds.length > 0;
-    const hasHighXp = xp >= 2600;
+    const hasHighXp = xp >= 600;
 
     return BADGES_LIST.map((badge, idx) => {
       const unlockedByProgress =

@@ -347,8 +347,8 @@ export default function HomePage() {
             <>
               {teacherRoute === 'dashboard' && (
                 <DashboardTeacher
-                  studentsCount={42}
-                  modulesCount={modules.length + 3}
+                  studentsCount={students.length}
+                  modulesCount={modules.length}
                   onNavigateTeacher={(r) => setTeacherRoute(r)}
                 />
               )}

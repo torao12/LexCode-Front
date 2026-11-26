@@ -35,11 +35,12 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
   onNavigate,
 }) => {
   const firstName = userName.split(' ')[0] || 'Ian';
-  const nextLevelXp = 3000;
-  const currentLevelBase = 2000;
+  const stepXp = 600;
+  const currentLevelBase = Math.max(0, Math.floor(xp / stepXp) * stepXp);
+  const nextLevelXp = currentLevelBase + stepXp;
   const progressPct = Math.min(
     100,
-    Math.max(10, Math.round(((xp - currentLevelBase) / (nextLevelXp - currentLevelBase)) * 100))
+    Math.max(4, Math.round(((xp - currentLevelBase) / stepXp) * 100))
   );
   const xpRemaining = Math.max(0, nextLevelXp - xp);
   const completedMissions = 12 + completedDilemaIds.length + completedActivities.length;

@@ -80,6 +80,7 @@ export default function HomePage() {
   const [completedDilemaIds, setCompletedDilemaIds] = useState<string[]>([]);
   const [completedActivities, setCompletedActivities] = useState<string[]>([]);
   const [progressReady, setProgressReady] = useState<boolean>(false);
+  const progressStorageKey = `lexcode_student_progress_v1_${profile?.id ?? "guest"}`;
   const [streakDays] = useState<number>(5);
   const [searchQuery, setSearchQuery] = useState<string>('');
   // Búsqueda enviada desde la barra superior y término abierto en el glosario
@@ -96,8 +97,12 @@ export default function HomePage() {
   );
 
   React.useEffect(() => {
+    setProgressReady(false);
+    setXpDelta(0);
+    setCompletedDilemaIds([]);
+    setCompletedActivities([]);
     try {
-      const raw = window.localStorage.getItem("lexcode_student_progress_v1");
+      const raw = window.localStorage.getItem(progressStorageKey) ?? window.localStorage.getItem("lexcode_student_progress_v1");
       if (raw) {
         const data = JSON.parse(raw) as {
           xpDelta?: number;
@@ -130,13 +135,13 @@ export default function HomePage() {
     } finally {
       setProgressReady(true);
     }
-  }, []);
+  }, [progressStorageKey]);
 
   React.useEffect(() => {
     if (!progressReady) return;
     try {
       window.localStorage.setItem(
-        "lexcode_student_progress_v1",
+        progressStorageKey,
         JSON.stringify({
           xpDelta,
           completedDilemaIds,
@@ -150,7 +155,7 @@ export default function HomePage() {
     } catch {
       // Ignora error de escritura en storage
     }
-  }, [progressReady, xpDelta, completedDilemaIds, completedActivities, studentRoute, teacherRoute, students, modules]);
+  }, [progressReady, progressStorageKey, xpDelta, completedDilemaIds, completedActivities, studentRoute, teacherRoute, students, modules]);
 
   const handleCompleteDilema = (dilemaId: string, isCorrect: boolean) => {
     if (!isCorrect) return;

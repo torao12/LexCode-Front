@@ -86,6 +86,7 @@ export default function HomePage() {
   const [submittedSearch, setSubmittedSearch] = useState<string>('');
   const [glossarySearch, setGlossarySearch] = useState<string>('');
   const [chatbotPrompt, setChatbotPrompt] = useState<string>('');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   const [students, setStudents] = useState<TeacherStudent[]>(
     INITIAL_TEACHER_STUDENTS
@@ -255,7 +256,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-[#000000] text-white flex relative overflow-x-hidden">
       {/* Patrón de puntos inferior izquierdo característico */}
       <div
-        className="pointer-events-none fixed left-[228px] bottom-0 w-[260px] h-[340px] lexcode-dot-pattern opacity-75 z-0"
+        className="pointer-events-none fixed left-4 lg:left-[228px] bottom-0 w-[220px] sm:w-[260px] h-[280px] sm:h-[340px] lexcode-dot-pattern opacity-60 sm:opacity-75 z-0"
         aria-hidden="true"
       />
 
@@ -272,6 +273,8 @@ export default function HomePage() {
         onSelectAdminRoute={(route) => setAdminRoute(route)}
         userName={profile.full_name}
         onLogout={handleLogout}
+        mobileOpen={mobileMenuOpen}
+        onCloseMobile={() => setMobileMenuOpen(false)}
       />
 
       <div className="flex-1 flex flex-col min-w-0 relative z-10">
@@ -280,9 +283,10 @@ export default function HomePage() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           onSearchSubmit={role === 'student' ? handleSearchSubmit : undefined}
+          onOpenMenu={() => setMobileMenuOpen(true)}
         />
 
-        <main className="flex-1 px-8 py-7">
+        <main className="flex-1 px-4 sm:px-6 lg:px-8 py-5 sm:py-7">
           {role === 'student' ? (
             <>
               {studentRoute === 'dashboard' && (

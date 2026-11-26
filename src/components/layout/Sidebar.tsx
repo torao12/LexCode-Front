@@ -18,6 +18,7 @@ import {
   ScrollText,
 } from 'lucide-react';
 import { AdminRoute, StudentRoute, TeacherRoute, UserRole } from '@/types/lexcode';
+import { X } from 'lucide-react';
 import { LexCodeLogo } from '@/components/brand/LexCodeLogo';
 
 interface NavItem<T extends string> {
@@ -36,6 +37,8 @@ interface SidebarProps {
   onSelectAdminRoute: (route: AdminRoute) => void;
   userName: string;
   onLogout: () => void;
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }
 
 const ROLE_LABELS: Record<UserRole, string> = { student: 'Alumno', teacher: 'Docente', admin: 'Administrador' };
@@ -72,10 +75,12 @@ function NavList<T extends string>({
   items,
   active,
   onSelect,
+  onAfterSelect,
 }: {
   items: NavItem<T>[];
   active: T;
   onSelect: (id: T) => void;
+  onAfterSelect?: () => void;
 }) {
   return (
     <>
@@ -85,7 +90,10 @@ function NavList<T extends string>({
           <button
             key={item.id}
             type="button"
-            onClick={() => onSelect(item.id)}
+            onClick={() => {
+              onSelect(item.id);
+              onAfterSelect?.();
+            }}
             aria-current={isActive ? 'page' : undefined}
             className={`w-full flex items-center gap-3.5 px-6 py-3 text-sm font-medium transition-colors relative cursor-pointer ${
               isActive ? 'bg-[#002A28] text-white' : 'text-[#A3A3A3] hover:text-white hover:bg-[#0B0B0B]'
@@ -113,6 +121,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelectAdminRoute,
   userName,
   onLogout,
+  mobileOpen = false,
+  onCloseMobile,
 }) => {
   const initials =
     userName
@@ -123,16 +133,38 @@ export const Sidebar: React.FC<SidebarProps> = ({
       .join('') || 'LX';
 
   return (
-    <aside className="w-[228px] shrink-0 bg-[#000000] border-r border-[#161616] flex flex-col justify-between min-h-screen py-6">
-      <div>
-        <div className="px-6 mb-9">
-          <LexCodeLogo size="md" />
-        </div>
+    <>
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/75 z-40 lg:hidden"
+          onClick={onCloseMobile}
+          aria-hidden="true"
+        />
+      )}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-[228px] shrink-0 bg-[#000000] border-r border-[#161616] flex flex-col justify-between min-h-screen py-6 transition-transform duration-200 lg:static lg:translate-x-0 ${
+          mobileOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
+      >
+        <div>
+          <div className="px-6 mb-9 flex items-center justify-between">
+            <LexCodeLogo size="md" />
+            {onCloseMobile && (
+              <button
+                type="button"
+                onClick={onCloseMobile}
+                aria-label="Cerrar menú"
+                className="p-1.5 rounded-lg text-[#A3A3A3] hover:text-white hover:bg-[#141414] lg:hidden cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            )}
+          </div>
 
         <nav className="space-y-1.5" aria-label="Navegación principal">
-          {role === 'student' && <NavList items={studentNav} active={studentRoute} onSelect={onSelectStudentRoute} />}
-          {role === 'teacher' && <NavList items={teacherNav} active={teacherRoute} onSelect={onSelectTeacherRoute} />}
-          {role === 'admin' && <NavList items={adminNav} active={adminRoute} onSelect={onSelectAdminRoute} />}
+          {role === 'student' && <NavList items={studentNav} active={studentRoute} onSelect={onSelectStudentRoute} onAfterSelect={onCloseMobile} />}
+          {role === 'teacher' && <NavList items={teacherNav} active={teacherRoute} onSelect={onSelectTeacherRoute} onAfterSelect={onCloseMobile} />}
+          {role === 'admin' && <NavList items={adminNav} active={adminRoute} onSelect={onSelectAdminRoute} onAfterSelect={onCloseMobile} />}
         </nav>
       </div>
 

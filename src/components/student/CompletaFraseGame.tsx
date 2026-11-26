@@ -134,7 +134,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         <p className="text-xl sm:text-2xl text-[#A3A3A3] leading-relaxed">
           {currentItem.prefix}{' '}
           <span
-            className={`inline-block min-w-[120px] sm:min-w-[150px] text-center px-4 py-1 mx-1 rounded-md border border-dashed text-base font-semibold ${
+            className={`inline-block min-w-[120px] sm:min-w-[120px] sm:min-w-[150px] text-center px-4 py-1 mx-1 rounded-md border border-dashed text-base font-semibold ${
               feedback === 'correct'
                 ? 'border-[#00FFEF] bg-[#002A28]/60 text-[#00FFEF]'
                 : feedback === 'wrong'
@@ -164,7 +164,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
                   setFeedback('idle');
                   setSelectedWord(opt);
                 }}
-                className={`min-w-[125px] sm:min-w-[155px] h-11 px-6 rounded-xl text-xs font-bold transition cursor-pointer ${
+                className={`min-w-[125px] sm:min-w-[125px] sm:min-w-[155px] h-11 px-6 rounded-xl text-xs font-bold transition cursor-pointer ${
                   active
                     ? 'bg-[#002A28]/60 border-2 border-[#00FFEF] text-[#00FFEF]'
                     : 'bg-[#111111] border border-[#242424] text-white hover:border-[#444444]'

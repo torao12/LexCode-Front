@@ -70,7 +70,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
 
     return (
       <div className="max-w-5xl space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="text-xs text-[#A3A3A3]">
             Dilemas / {activeDilema.title}
           </div>
@@ -173,7 +173,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
                   {selectedOption.feedbackText}
                 </p>
 
-                <div className="flex items-center justify-between pt-3 border-t border-[#1E1E1E]">
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-[#1E1E1E]">
                   <span
                     className={`text-xs font-bold ${
                       selectedOption.isCorrect ? 'text-[#00FFEF]' : 'text-[#FF3366]'

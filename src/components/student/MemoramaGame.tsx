@@ -119,7 +119,7 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 max-w-6xl items-start">
       <div className="lg:col-span-8 space-y-5">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="text-xs text-[#A3A3A3]">Actividades / Memorama</div>
           <button
             type="button"

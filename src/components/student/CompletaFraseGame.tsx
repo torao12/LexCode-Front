@@ -77,7 +77,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
           </p>
         </div>
 
-        <div className="bg-[#0A0A0A] border border-[#222222] rounded-xl p-5 flex items-center justify-between">
+        <div className="bg-[#0A0A0A] border border-[#222222] rounded-xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3">
           <span className="text-xs text-[#A3A3A3]">XP neta de la sesión</span>
           <span className="text-xl font-bold text-[#00FFEF]">
             {sessionXp >= 0 ? `+${sessionXp}` : sessionXp} XP
@@ -106,7 +106,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
 
   return (
     <div className="max-w-5xl space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="text-sm font-bold text-white">
           {currentItem.ruleTitle} ({index + 1}/{CLOZE_ITEMS.length})
         </div>
@@ -177,7 +177,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         </div>
       </div>
 
-      <div className="mt-8 bg-[#0D0D0D] border border-[#1E1E1E] rounded-2xl px-6 py-4 flex items-center justify-between gap-4">
+      <div className="mt-6 sm:mt-8 bg-[#0D0D0D] border border-[#1E1E1E] rounded-2xl px-4 sm:px-6 py-4 flex flex-wrap items-center justify-between gap-3 sm:gap-4">
         <div className="text-xs">
           {feedback === 'correct' && (
             <span className="text-[#00FFEF] font-bold">

@@ -110,7 +110,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
           </p>
 
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
               <span className="text-[#A3A3A3]">
                 {completedMissions} de {totalMissions} misiones completadas
               </span>
@@ -194,7 +194,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
 
       <div className="xl:col-span-4 space-y-6">
         <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-base font-bold text-white">Insignias Recientes</h2>
             <button
               type="button"
@@ -223,7 +223,7 @@ export const DashboardStudent: React.FC<DashboardStudentProps> = ({
         </div>
 
         <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6 space-y-4">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-base font-bold text-white">Ruta de Dilemas</h2>
             <span className="text-xs font-bold text-[#00FFEF]">
               {completedDilemaIds.length} / {INITIAL_DILEMAS.length}

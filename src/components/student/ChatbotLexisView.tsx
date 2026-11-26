@@ -347,7 +347,7 @@ export const ChatbotLexisView: React.FC<ChatbotLexisViewProps> = ({
 
         {/* Barra inferior de envío */}
         <form onSubmit={handleSend} className="p-4 border-t border-[#181818] bg-[#090909]">
-          <div className="flex items-center justify-between gap-3 bg-[#050505] border border-[#222222] rounded-full pl-5 pr-2 py-2">
+          <div className="flex items-center justify-between gap-2 sm:gap-3 bg-[#050505] border border-[#222222] rounded-full pl-4 sm:pl-5 pr-2 py-2 min-w-0">
             <input
               type="text"
               value={inputText}

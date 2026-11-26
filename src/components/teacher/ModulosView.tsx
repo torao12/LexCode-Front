@@ -287,7 +287,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         >
           <form
             onSubmit={handleCreateModule}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-6"
+            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6"
           >
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -390,7 +390,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
           aria-modal="true"
           className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4"
         >
-          <div className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-6">
+          <div className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-bold text-white">
@@ -422,7 +422,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
               </button>
             </div>
 
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4">
               <div className="inline-flex items-center gap-1 bg-[#0B0B0B] border border-[#242424] rounded-xl p-1 text-xs">
                 <button
                   type="button"
@@ -501,7 +501,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
                   />
                 </div>
 
-                <div className="bg-[#240B0E] border border-[#5C1922] rounded-xl px-5 py-4 flex items-center justify-between text-xs font-bold text-[#FF3366]">
+                <div className="bg-[#240B0E] border border-[#5C1922] rounded-xl px-4 sm:px-5 py-4 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-[#FF3366]">
                   <span>Eliminar este módulo permanentemente</span>
                   <button
                     type="button"
@@ -632,7 +632,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         >
           <form
             onSubmit={handleAddClozeItem}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-5"
+            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5"
           >
             <div className="flex items-start justify-between">
               <div>
@@ -692,7 +692,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         >
           <form
             onSubmit={handleAddMemoramaPair}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-5"
+            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5"
           >
             <div className="flex items-start justify-between">
               <div>
@@ -761,7 +761,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         >
           <form
             onSubmit={handleAddQuizQuestion}
-            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-8 space-y-5"
+            className="w-full max-w-2xl bg-[#121212] border border-[#262626] rounded-2xl p-4 sm:p-6 md:p-8 space-y-5"
           >
             <div className="flex items-start justify-between">
               <div>

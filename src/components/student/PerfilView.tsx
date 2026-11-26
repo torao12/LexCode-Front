@@ -439,7 +439,7 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ xp, onLogout }) => {
         </h2>
 
         <div className="bg-[#111111] border border-[#222222] rounded-2xl divide-y divide-[#1E1E1E]">
-          <div className="flex items-center justify-between gap-4 px-6 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-4">
             <div>
               <p className="text-sm font-semibold text-white">Aparecer en los rankings públicos</p>
               <p className="text-xs text-[#757575] mt-0.5">Si lo desactivas, tu nombre no se muestra en tablas de posiciones.</p>
@@ -451,7 +451,7 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ xp, onLogout }) => {
               onChange={(v) => void handleConsent('public_rankings', v)}
             />
           </div>
-          <div className="flex items-center justify-between gap-4 px-6 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-4">
             <div>
               <p className="text-sm font-semibold text-white">Estadísticas anónimas</p>
               <p className="text-xs text-[#757575] mt-0.5">Usar mis datos, sin identificarme, para mejorar la plataforma.</p>
@@ -463,7 +463,7 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ xp, onLogout }) => {
               onChange={(v) => void handleConsent('secondary_purposes', v)}
             />
           </div>
-          <div className="flex items-center justify-between gap-4 px-6 py-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 px-4 sm:px-6 py-4">
             <div>
               <p className="text-sm font-semibold text-white">Descargar mis datos</p>
               <p className="text-xs text-[#757575] mt-0.5">Un archivo con todo lo que LexCode guarda de ti.</p>
@@ -479,7 +479,7 @@ export const PerfilView: React.FC<PerfilViewProps> = ({ xp, onLogout }) => {
             </button>
           </div>
           <div className="px-6 py-4 space-y-3">
-            <div className="flex items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
               <div>
                 <p className="text-sm font-semibold text-white">Eliminar mi cuenta</p>
                 <p className="text-xs text-[#757575] mt-0.5">Tendrás 30 días para recuperarla; después se borra con todos tus datos.</p>

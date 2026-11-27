@@ -141,7 +141,7 @@ export const GlosarioView: React.FC<GlosarioViewProps> = ({
             </p>
           </div>
 
-          <div className="bg-[#0D0D0D] border border-[#1E1E1E] rounded-2xl py-14 px-6 flex flex-col items-center text-center space-y-5">
+          <div className="bg-[#0D0D0D] border border-[#1E1E1E] rounded-2xl py-8 sm:py-14 px-4 sm:px-6 flex flex-col items-center text-center space-y-5">
             <div className="flex items-center gap-6">
               <LexisMascot expression="sad" className="w-28 h-36" />
               <div className="flex flex-col items-center gap-3">
@@ -194,7 +194,7 @@ export const GlosarioView: React.FC<GlosarioViewProps> = ({
                   key={item.id}
                   type="button"
                   onClick={() => setSelectedTermId(item.id)}
-                  className={`w-full text-left rounded-2xl px-6 py-5 transition cursor-pointer ${
+                  className={`w-full text-left rounded-2xl px-4 py-3.5 sm:px-6 sm:py-5 transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#121212] border-2 border-[#00FFEF]'
                       : 'bg-[#111111] border border-[#222222] hover:border-[#3A3A3A]'
@@ -210,7 +210,7 @@ export const GlosarioView: React.FC<GlosarioViewProps> = ({
 
           {/* Columna derecha: tarjeta de definición detallada y Lexis con libro */}
           {activeTerm && (
-            <div className="lg:col-span-7 bg-[#111111] border border-[#222222] rounded-2xl p-7 relative min-h-[420px] flex flex-col justify-between">
+            <div className="lg:col-span-7 bg-[#111111] border border-[#222222] rounded-2xl p-4 sm:p-7 relative min-h-[260px] lg:min-h-[400px] flex flex-col justify-between">
               <div>
                 <p className="text-[11px] font-bold tracking-[0.08em] text-[#00FFEF] uppercase">
                   {activeTerm.category}

@@ -35,13 +35,13 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
           <div className="text-xs text-[#757575] mt-3">Unidades de aprendizaje</div>
         </div>
 
-        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6">
+        <div className="bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6">
           <div className="text-xs text-[#A3A3A3]">Promedio del Grupo</div>
           <div className="text-3xl font-bold text-[#00FFEF] mt-3">88.4</div>
           <div className="text-xs text-[#00FFEF] mt-3">+4.2% respecto al parcial</div>
         </div>
 
-        <div className="bg-[#111111] border-b-2 border-b-[#00FFEF] border-x border-t border-[#1E1E1E] rounded-2xl p-6">
+        <div className="bg-[#111111] border-b-2 border-b-[#00FFEF] border-x border-t border-[#1E1E1E] rounded-2xl p-4 sm:p-6">
           <div className="text-xs text-[#A3A3A3]">Simulaciones por Revisar</div>
           <div className="text-3xl font-bold text-white mt-3">5</div>
           <div className="text-xs text-[#757575] mt-3">Entregas recientes</div>
@@ -49,12 +49,12 @@ export const DashboardTeacher: React.FC<DashboardTeacherProps> = ({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <div className="lg:col-span-8 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-6">
+        <div className="lg:col-span-8 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-6">
           <h2 className="text-base font-bold text-white mb-4">
             Progreso General por Módulos y Prácticas
           </h2>
 
-          <div className="border border-dashed border-[#2C2C2C] rounded-xl h-72 relative flex items-center justify-center p-4">
+          <div className="border border-dashed border-[#2C2C2C] rounded-xl h-52 sm:h-72 relative flex items-center justify-center p-3 sm:p-4">
             <svg
               viewBox="0 0 600 220"
               className="w-full h-full"

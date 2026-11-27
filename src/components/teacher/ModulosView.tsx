@@ -161,7 +161,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
         </button>
       </div>
 
-      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-7 space-y-6">
+      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-4 sm:p-7 space-y-4 sm:space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white">
@@ -191,7 +191,7 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
               <span>ACCIONES</span>
             </div></div>
 
-            <div className="mt-10 mx-auto max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-12 px-6 flex flex-col items-center text-center space-y-4">
+            <div className="mt-5 sm:mt-10 mx-auto max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-8 sm:py-12 px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
               <UserPlus className="w-8 h-8 text-[#757575]" />
               <div>
                 <h2 className="text-base font-bold text-white">
@@ -237,18 +237,18 @@ export const ModulosView: React.FC<ModulosViewProps> = ({
                         }`}
                       >
                         <td
-                          className={`py-4 px-4 font-bold ${
+                          className={`py-2.5 sm:py-4 px-2.5 sm:px-4 font-bold ${
                             isSelected ? 'text-[#00FFEF]' : 'text-white'
                           }`}
                         >
                           {mod.order}
                         </td>
-                        <td className="py-4 px-4 font-bold text-white">{mod.name}</td>
-                        <td className="py-4 px-4 text-[#757575]">{mod.standard}</td>
-                        <td className="py-4 px-4 text-[#A3A3A3]">
+                        <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 font-bold text-white">{mod.name}</td>
+                        <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 text-[#757575]">{mod.standard}</td>
+                        <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 text-[#A3A3A3]">
                           {mod.enrolledCount} alumnos
                         </td>
-                        <td className="py-4 px-4 text-right">
+                        <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 text-right">
                           <button
                             type="button"
                             onClick={(e) => {

@@ -192,7 +192,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
         </button>
       </div>
 
-      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-6 space-y-6">
+      <div className="bg-[#0D0D0D] border border-[#1B1B1B] rounded-2xl p-4 sm:p-6 space-y-4 sm:space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="relative">
             <select
@@ -227,7 +227,7 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
               <span>ESTATUS</span>
             </div></div>
 
-            <div className="mt-10 w-full max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-12 px-6 flex flex-col items-center text-center space-y-4">
+            <div className="mt-5 sm:mt-10 w-full max-w-md bg-[#111111] border border-[#222222] rounded-2xl py-8 sm:py-12 px-4 sm:px-6 flex flex-col items-center text-center space-y-4">
               <UserPlus className="w-8 h-8 text-[#757575]" />
               <div>
                 <h2 className="text-base font-bold text-white">No hay alumnos registrados</h2>
@@ -260,21 +260,21 @@ export const AlumnosView: React.FC<AlumnosViewProps> = ({
                 <tbody className="divide-y divide-[#171717] text-xs sm:text-sm">
                   {visibleStudents.map((student) => (
                     <tr key={student.id} className="hover:bg-[#121212] transition">
-                      <td className="py-4 pr-4 font-semibold text-white">
+                      <td className="py-2.5 sm:py-4 pr-3 sm:pr-4 font-semibold text-white">
                         {student.name}
                       </td>
-                      <td className="py-4 px-4 text-[#757575]">{student.matricula}</td>
-                      <td className="py-4 px-4 text-[#A3A3A3]">
+                      <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 text-[#757575]">{student.matricula}</td>
+                      <td className="py-2.5 sm:py-4 px-2.5 sm:px-4 text-[#A3A3A3]">
                         {student.currentModule}
                       </td>
                       <td
-                        className={`py-4 px-4 font-bold ${
+                        className={`py-2.5 sm:py-4 px-2.5 sm:px-4 font-bold ${
                           student.average >= 80 ? 'text-[#00FFEF]' : 'text-[#A3A3A3]'
                         }`}
                       >
                         {student.average.toFixed(1)}
                       </td>
-                      <td className="py-4 pl-4">
+                      <td className="py-2.5 sm:py-4 pl-3 sm:pl-4">
                         {student.status === 'Activo' ? (
                           <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-[#05291E] text-[#10B981]">
                             Activo

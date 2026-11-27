@@ -24,7 +24,7 @@ export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> =
         </div>
 
         <div className="space-y-4">
-          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-4 py-3.5 sm:px-6 sm:py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Perfil Institucional</h2>
               <p className="text-xs text-[#757575] mt-1">
@@ -43,7 +43,7 @@ export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> =
             </button>
           </div>
 
-          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-4 py-3.5 sm:px-6 sm:py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Apariencia y Tema</h2>
               <p className="text-xs text-[#757575] mt-1">
@@ -55,7 +55,7 @@ export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> =
             </span>
           </div>
 
-          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="bg-[#121212] border border-[#222222] rounded-2xl px-4 py-3.5 sm:px-6 sm:py-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <h2 className="text-sm font-bold text-white">Avisos y Retos de Misiones</h2>
               <p className="text-xs text-[#757575] mt-1">
@@ -80,7 +80,7 @@ export const ConfiguracionDocenteView: React.FC<ConfiguracionDocenteViewProps> =
           </div>
 
           {onLogout && (
-            <div className="bg-[#121212] border border-[#FF3366]/40 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-between gap-4">
+            <div className="bg-[#121212] border border-[#FF3366]/40 rounded-2xl px-4 py-3.5 sm:px-6 sm:py-5 flex flex-wrap items-center justify-between gap-4">
               <div>
                 <h2 className="text-sm font-bold text-white">Sesión Administrativa</h2>
                 <p className="text-xs text-[#757575] mt-1">

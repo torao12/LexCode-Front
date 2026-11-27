@@ -91,7 +91,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 sm:gap-6 w-full mt-4 sm:mt-6">
             {modules.map((mod) => {
               const isSelected = selectedId === mod.id;
               return (
@@ -99,7 +99,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
                   key={mod.id}
                   type="button"
                   onClick={() => setSelectedId(mod.id)}
-                  className={`rounded-2xl p-4 sm:p-7 text-center flex flex-col items-center justify-center min-h-[165px] sm:min-h-[220px] transition cursor-pointer ${
+                  className={`rounded-2xl p-4 sm:p-7 text-center flex flex-col items-center justify-center min-h-[132px] sm:min-h-[200px] transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#002A28]/50 border-2 border-[#00FFEF]'
                       : 'bg-[#111111] border border-[#222222] hover:border-[#444444]'
@@ -144,7 +144,7 @@ export const OnboardingView: React.FC<OnboardingViewProps> = ({
           <button
             type="button"
             onClick={() => onFinishOnboarding(selectedId)}
-            className="mt-8 bg-[#00FFEF] text-black font-bold text-sm px-5 sm:px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
+            className="mt-5 sm:mt-8 bg-[#00FFEF] text-black font-bold text-sm px-5 sm:px-8 py-3 rounded-xl hover:brightness-105 transition cursor-pointer"
           >
             Confirmar mi selección
           </button>

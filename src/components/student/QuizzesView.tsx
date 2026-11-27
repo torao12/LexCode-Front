@@ -80,8 +80,8 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
 
   if (phase === 'modules') {
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 max-w-6xl">
-        <div className="lg:col-span-8 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-5 lg:gap-8 max-w-6xl">
+        <div className="lg:col-span-8 space-y-4 sm:space-y-6">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
@@ -116,7 +116,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
                   key={mod.id}
                   type="button"
                   onClick={() => setSelectedModuleId(mod.id)}
-                  className={`rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[170px] sm:min-h-[230px] transition cursor-pointer ${
+                  className={`rounded-2xl p-4 sm:p-6 text-left flex flex-col justify-between min-h-[136px] sm:min-h-[210px] transition cursor-pointer ${
                     isSelected
                       ? 'bg-[#002A28]/45 border-2 border-[#00FFEF]'
                       : 'bg-[#111111] border border-[#222222] hover:border-[#3A3A3A]'
@@ -202,8 +202,8 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
     );
 
     return (
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 max-w-6xl items-start">
-        <div className="lg:col-span-8 space-y-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-5 lg:gap-8 max-w-6xl items-start">
+        <div className="lg:col-span-8 space-y-4 sm:space-y-6">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
               Resultados del Quiz
@@ -284,8 +284,8 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
   );
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8 max-w-6xl items-start">
-      <div className="lg:col-span-8 space-y-6">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-5 lg:gap-8 max-w-6xl items-start">
+      <div className="lg:col-span-8 space-y-4 sm:space-y-6">
         <div className="flex items-center gap-4">
           <span className="text-xs font-bold text-white whitespace-nowrap">
             Quiz en progreso ({questionIdx + 1}/{QUIZ_QUESTIONS.length})
@@ -329,7 +329,7 @@ export const QuizzesView: React.FC<QuizzesViewProps> = ({
                 type="button"
                 disabled={Boolean(selectedOptionId)}
                 onClick={() => handleChooseOption(opt.id)}
-                className={`rounded-xl px-5 py-5 text-left text-xs sm:text-sm font-medium flex items-center justify-between gap-3 transition cursor-pointer disabled:cursor-default ${classes}`}
+                className={`rounded-xl px-4 py-3.5 sm:px-5 sm:py-5 text-left text-xs sm:text-sm font-medium flex items-center justify-between gap-3 transition cursor-pointer disabled:cursor-default ${classes}`}
               >
                 <span>
                   <strong className="text-white">{opt.id})</strong> {opt.text}

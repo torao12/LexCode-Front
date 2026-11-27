@@ -86,7 +86,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
           </button>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-start">
           <div className="lg:col-span-7 bg-[#0B0B0B] border border-[#222222] rounded-2xl p-4 sm:p-6 space-y-5">
             <div className="flex items-center justify-between gap-2">
               <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#161616] text-[#00FFEF] border border-[#262626]">
@@ -213,7 +213,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
   }
 
   return (
-    <div className="max-w-6xl space-y-7">
+    <div className="max-w-6xl space-y-4 sm:space-y-7">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
@@ -228,7 +228,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-5">
         {dilemas.map((dilema, index) => {
           const isCompleted = dilema.status === 'completed';
           const isLocked = dilema.status === 'locked';
@@ -237,7 +237,7 @@ export const DilemasView: React.FC<DilemasViewProps> = ({
           return (
             <div
               key={dilema.id}
-              className={`rounded-2xl border p-4 sm:p-6 flex flex-col justify-between gap-5 transition ${
+              className={`rounded-2xl border p-4 sm:p-6 flex flex-col justify-between gap-3.5 sm:gap-5 transition ${
                 isLocked
                   ? 'bg-[#080808] border-[#1A1A1A] opacity-65'
                   : 'bg-[#0B0B0B] border-[#242424] hover:border-[#00FFEF]/50'

@@ -92,7 +92,7 @@ const ArcoItem: React.FC<{ req: ArcoRequest; onSaved: (r: ArcoRequest) => void }
   };
 
   return (
-    <Card className={`p-5 space-y-3 ${overdue ? 'border-[#FF3366]' : ''}`}>
+    <Card className={`p-3.5 sm:p-5 space-y-3 ${overdue ? 'border-[#FF3366]' : ''}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="space-y-1">
           <div className="flex flex-wrap items-center gap-2">

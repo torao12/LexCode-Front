@@ -115,7 +115,7 @@ export const AdminReportsView: React.FC = () => {
             {data.items.map((r) => {
               const [label, tone] = STATUS[r.status];
               return (
-                <Card key={r.id} className="p-5 space-y-3">
+                <Card key={r.id} className="p-3.5 sm:p-5 space-y-3">
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <div className="flex flex-wrap items-center gap-2 text-xs text-[#757575]">
                       <Badge tone={tone}>{label}</Badge>

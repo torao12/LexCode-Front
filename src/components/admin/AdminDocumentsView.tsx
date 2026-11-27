@@ -61,7 +61,7 @@ export const AdminDocumentsView: React.FC = () => {
   };
 
   return (
-    <div className="max-w-5xl space-y-8">
+    <div className="max-w-5xl space-y-5 sm:space-y-8">
       <PageHeader
         title="Documentos legales"
         subtitle="Al registrarse, cada persona acepta la versión vigente; publicar una nueva versión no cambia los consentimientos ya dados."
@@ -77,7 +77,7 @@ export const AdminDocumentsView: React.FC = () => {
             const isCurrent = currentIds.has(d.id);
             const isFuture = d.effective_at > new Date().toISOString().slice(0, 10);
             return (
-              <div key={d.id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4">
+              <div key={d.id} className="flex flex-wrap items-center justify-between gap-3 px-3.5 py-3 sm:px-5 sm:py-4">
                 <div>
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-semibold text-white">{d.title}</p>

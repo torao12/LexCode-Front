@@ -161,12 +161,12 @@ export const AdminUsersView: React.FC = () => {
             <table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="text-left text-[11px] uppercase tracking-wider text-[#757575] border-b border-[#222222]">
-                  <th className="px-5 py-3 font-semibold">Usuario</th>
-                  <th className="px-5 py-3 font-semibold">Rol</th>
-                  <th className="px-5 py-3 font-semibold">Estado</th>
-                  <th className="px-5 py-3 font-semibold">Nivel</th>
-                  <th className="px-5 py-3 font-semibold">Alta</th>
-                  <th className="px-5 py-3 font-semibold text-right">Acciones</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Usuario</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Rol</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Estado</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Nivel</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Alta</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold text-right">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -175,7 +175,7 @@ export const AdminUsersView: React.FC = () => {
                   const [statusLabel, tone] = STATUS[u.status];
                   return (
                     <tr key={u.id} className="border-b border-[#1A1A1A] last:border-0">
-                      <td className="px-5 py-3.5">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5">
                         <p className="font-semibold text-white">
                           {u.full_name} {isMe && <span className="text-[11px] text-[#00FFEF]">(tú)</span>}
                         </p>
@@ -183,7 +183,7 @@ export const AdminUsersView: React.FC = () => {
                           @{u.username} · {u.email}
                         </p>
                       </td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5">
                         <select
                           aria-label={`Rol de ${u.full_name}`}
                           value={u.role}
@@ -196,14 +196,14 @@ export const AdminUsersView: React.FC = () => {
                           <option value="admin">Administrador</option>
                         </select>
                       </td>
-                      <td className="px-5 py-3.5">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5">
                         <Badge tone={tone}>{statusLabel}</Badge>
                       </td>
-                      <td className="px-5 py-3.5 text-[#D4D4D4]">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5 text-[#D4D4D4]">
                         {u.level} <span className="text-xs text-[#757575]">· {u.xp_total.toLocaleString('es-MX')} XP</span>
                       </td>
-                      <td className="px-5 py-3.5 text-xs text-[#A3A3A3]">{formatDate(u.created_at)}</td>
-                      <td className="px-5 py-3.5 text-right">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5 text-xs text-[#A3A3A3]">{formatDate(u.created_at)}</td>
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3.5 text-right">
                         {!isMe && u.status !== 'deleted' && (
                           <Button
                             small

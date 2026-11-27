@@ -116,12 +116,12 @@ export const AdminAuditView: React.FC = () => {
             <table className="w-full min-w-[640px] text-sm">
               <thead>
                 <tr className="text-left text-[11px] uppercase tracking-wider text-[#757575] border-b border-[#222222]">
-                  <th className="px-5 py-3 font-semibold">Fecha</th>
-                  <th className="px-5 py-3 font-semibold">Acción</th>
-                  <th className="px-5 py-3 font-semibold">Tabla</th>
-                  <th className="px-5 py-3 font-semibold">Registro</th>
-                  <th className="px-5 py-3 font-semibold">Quién</th>
-                  <th className="px-5 py-3 font-semibold">Cambios</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Fecha</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Acción</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Tabla</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Registro</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Quién</th>
+                  <th className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-semibold">Cambios</th>
                 </tr>
               </thead>
               <tbody>
@@ -129,13 +129,13 @@ export const AdminAuditView: React.FC = () => {
                   const [label, tone] = ACTIONS[e.action] ?? [e.action, 'gray' as BadgeTone];
                   return (
                     <tr key={e.id} className="border-b border-[#1A1A1A] last:border-0 align-top">
-                      <td className="px-5 py-3 text-xs text-[#A3A3A3] whitespace-nowrap">{formatDate(e.created_at, true)}</td>
-                      <td className="px-5 py-3">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs text-[#A3A3A3] whitespace-nowrap">{formatDate(e.created_at, true)}</td>
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3">
                         <Badge tone={tone}>{label}</Badge>
                       </td>
-                      <td className="px-5 py-3 text-xs text-[#D4D4D4]">{TABLES[e.table_name] ?? e.table_name}</td>
-                      <td className="px-5 py-3 font-mono text-[11px] text-[#757575]">{e.record_id?.slice(0, 8) ?? '—'}</td>
-                      <td className="px-5 py-3 text-xs">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs text-[#D4D4D4]">{TABLES[e.table_name] ?? e.table_name}</td>
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3 font-mono text-[11px] text-[#757575]">{e.record_id?.slice(0, 8) ?? '—'}</td>
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3 text-xs">
                         {e.actor ? (
                           <span className="text-[#D4D4D4]" title={e.actor_id ?? undefined}>
                             {e.actor.full_name}
@@ -147,7 +147,7 @@ export const AdminAuditView: React.FC = () => {
                           <span className="text-[#757575]">Sistema</span>
                         )}
                       </td>
-                      <td className="px-5 py-3">
+                      <td className="px-2.5 py-2.5 sm:px-5 sm:py-3">
                         <Changes changes={e.changes} />
                       </td>
                     </tr>

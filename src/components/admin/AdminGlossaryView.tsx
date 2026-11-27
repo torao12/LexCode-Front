@@ -200,7 +200,7 @@ export const AdminGlossaryView: React.FC = () => {
       ) : (
         <div className="space-y-3">
           {visible.map((t) => (
-            <Card key={t.id} className="p-5">
+            <Card key={t.id} className="p-3.5 sm:p-5">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-bold tracking-wider text-[#00FFEF] uppercase">{t.category}</p>

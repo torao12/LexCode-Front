@@ -168,7 +168,7 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
           </div>
         )}
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-1 sm:pt-2">
           {deck.map((card) => {
             const isMatched = matchedPairs.includes(card.pairId);
             const isFlipped = flippedIds.includes(card.id) || isMatched;
@@ -178,7 +178,7 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
                 key={card.id}
                 type="button"
                 onClick={() => handleCardClick(card.id, card.pairId)}
-                className={`h-44 rounded-2xl p-4 flex flex-col items-center justify-center text-center transition cursor-pointer ${
+                className={`h-32 sm:h-44 rounded-2xl p-3 sm:p-4 flex flex-col items-center justify-center text-center transition cursor-pointer ${
                   isFlipped
                     ? 'bg-[#002A28]/55 border-2 border-[#00FFEF]'
                     : 'bg-[#111111] border border-[#222222] hover:border-[#3A3A3A]'
@@ -209,7 +209,7 @@ export const MemoramaGame: React.FC<MemoramaGameProps> = ({
         </div>
       </div>
 
-      <div className="lg:col-span-4 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-7 space-y-6 text-center">
+      <div className="lg:col-span-4 bg-[#111111] border border-[#1E1E1E] rounded-2xl p-4 sm:p-7 space-y-4 sm:space-y-6 text-center">
         {justMatchedBanner ? (
           <div className="bg-[#002A28]/70 border border-[#00FFEF] rounded-xl p-4">
             <div className="text-base font-bold text-[#00FFEF]">Par Correcto!</div>

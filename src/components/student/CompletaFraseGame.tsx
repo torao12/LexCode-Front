@@ -105,7 +105,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
   }
 
   return (
-    <div className="max-w-5xl space-y-6">
+    <div className="max-w-5xl space-y-4 sm:space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="text-sm font-bold text-white">
           {currentItem.ruleTitle} ({index + 1}/{CLOZE_ITEMS.length})
@@ -126,7 +126,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         />
       </div>
 
-      <div className="pt-4 space-y-6">
+      <div className="pt-2 sm:pt-4 space-y-4 sm:space-y-6">
         <h1 className="text-2xl sm:text-3xl font-bold text-white">
           Completa la siguiente frase con el termino legal correcto:
         </h1>
@@ -134,7 +134,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
         <p className="text-xl sm:text-2xl text-[#A3A3A3] leading-relaxed">
           {currentItem.prefix}{' '}
           <span
-            className={`inline-block min-w-[120px] sm:min-w-[120px] sm:min-w-[150px] text-center px-4 py-1 mx-1 rounded-md border border-dashed text-base font-semibold ${
+            className={`inline-block min-w-[96px] sm:min-w-[150px] text-center px-4 py-1 mx-1 rounded-md border border-dashed text-base font-semibold ${
               feedback === 'correct'
                 ? 'border-[#00FFEF] bg-[#002A28]/60 text-[#00FFEF]'
                 : feedback === 'wrong'
@@ -153,7 +153,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
           Selecciona una de las opciones para rellenar el espacio vacio:
         </p>
 
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-2.5 sm:gap-4">
           {currentItem.options.map((opt) => {
             const active = selectedWord === opt;
             return (
@@ -164,7 +164,7 @@ export const CompletaFraseGame: React.FC<CompletaFraseGameProps> = ({
                   setFeedback('idle');
                   setSelectedWord(opt);
                 }}
-                className={`min-w-[125px] sm:min-w-[125px] sm:min-w-[155px] h-11 px-6 rounded-xl text-xs font-bold transition cursor-pointer ${
+                className={`min-w-[100px] sm:min-w-[155px] h-11 px-6 rounded-xl text-xs font-bold transition cursor-pointer ${
                   active
                     ? 'bg-[#002A28]/60 border-2 border-[#00FFEF] text-[#00FFEF]'
                     : 'bg-[#111111] border border-[#242424] text-white hover:border-[#444444]'

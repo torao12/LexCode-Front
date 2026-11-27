@@ -16,7 +16,7 @@ export const LandingView: React.FC<LandingViewProps> = ({
   onViewModules,
 }) => {
   return (
-    <div className="min-h-screen bg-[#000000] text-white relative overflow-hidden flex flex-col justify-between overflow-x-hidden">
+    <div className="min-h-screen bg-[#000000] text-white relative overflow-x-hidden flex flex-col justify-between">
       <div
         className="pointer-events-none absolute left-0 bottom-0 w-[260px] h-[340px] lexcode-dot-pattern opacity-80"
         aria-hidden="true"

@@ -14,6 +14,14 @@ import {
   INITIAL_TEACHER_STUDENTS,
 } from '@/data/mockLexCode';
 import { useSession } from '@/lib/session';
+import { loadSession } from '@/lib/api';
+import {
+  fetchRemoteProgress,
+  syncActivityCompletion,
+  syncDilemaCompletion,
+  syncQuizCompletion,
+  type StudentProgressSnapshot,
+} from '@/lib/progress';
 import { LandingView } from '@/components/public/LandingView';
 import { AuthView } from '@/components/public/AuthView';
 import { OnboardingView } from '@/components/public/OnboardingView';
@@ -96,7 +104,22 @@ export default function HomePage() {
     INITIAL_TEACHER_MODULES
   );
 
+  const applyRemoteSnapshot = React.useCallback((snap: StudentProgressSnapshot) => {
+    if (Array.isArray(snap.completedDilemaIds)) {
+      setCompletedDilemaIds(snap.completedDilemaIds);
+    }
+    if (Array.isArray(snap.completedActivities)) {
+      setCompletedActivities(snap.completedActivities);
+    }
+    if (typeof snap.xpTotal === "number" && profile) {
+      setXpDelta(snap.xpTotal - (profile.xp_total ?? 0));
+    } else if (typeof snap.xpDelta === "number") {
+      setXpDelta(snap.xpDelta);
+    }
+  }, [profile]);
+
   React.useEffect(() => {
+    let active = true;
     setProgressReady(false);
     setXpDelta(0);
     setCompletedDilemaIds([]);
@@ -133,9 +156,20 @@ export default function HomePage() {
     } catch {
       // Ignora error de lectura de storage
     } finally {
-      setProgressReady(true);
+      if (active) setProgressReady(true);
     }
-  }, [progressStorageKey]);
+
+    if (profile && loadSession()) {
+      void fetchRemoteProgress().then((remote) => {
+        if (!active || !remote) return;
+        applyRemoteSnapshot(remote);
+      });
+    }
+
+    return () => {
+      active = false;
+    };
+  }, [progressStorageKey, profile, applyRemoteSnapshot]);
 
   React.useEffect(() => {
     if (!progressReady) return;
@@ -160,12 +194,25 @@ export default function HomePage() {
   const handleCompleteDilema = (dilemaId: string, isCorrect: boolean) => {
     if (!isCorrect) return;
     setCompletedDilemaIds((prev) => (prev.includes(dilemaId) ? prev : [...prev, dilemaId]));
+    if (profile && loadSession()) {
+      void syncDilemaCompletion({ dilemaId, isCorrect, xpDelta }).then((remote) => {
+        if (remote) applyRemoteSnapshot(remote);
+      });
+    }
   };
 
   const handleCompleteActivity = (activityId: string) => {
     setCompletedActivities((prev) =>
       prev.includes(activityId) ? prev : [...prev, activityId]
     );
+    if (profile && loadSession()) {
+      const req = activityId.startsWith("quiz-")
+        ? syncQuizCompletion({ moduleId: activityId.replace(/^quiz-/, ""), xpDelta })
+        : syncActivityCompletion({ activityId, xpDelta });
+      void req.then((remote) => {
+        if (remote) applyRemoteSnapshot(remote);
+      });
+    }
   };
 
   const handleUpdateXp = (delta: number) => {
